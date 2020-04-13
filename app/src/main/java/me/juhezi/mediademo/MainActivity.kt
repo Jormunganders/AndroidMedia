@@ -14,7 +14,7 @@ const val TAG = "Juhezi"
 
 class MainActivity : AppCompatActivity(), SurfaceHolder.Callback {
 
-    private var playerThread: PlayerThread? = null
+    private var videoPlayerThread: VideoPlayerThread? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,9 +24,9 @@ class MainActivity : AppCompatActivity(), SurfaceHolder.Callback {
     }
 
     override fun surfaceChanged(holder: SurfaceHolder?, format: Int, width: Int, height: Int) {
-        if (playerThread == null) {
-            playerThread = PlayerThread(holder!!.surface)
-            playerThread!!.start()
+        if (videoPlayerThread == null) {
+            videoPlayerThread = VideoPlayerThread(holder!!.surface)
+            videoPlayerThread!!.start()
         }
     }
 
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), SurfaceHolder.Callback {
     override fun surfaceCreated(holder: SurfaceHolder?) {
     }
 
-    private class PlayerThread(var surface: Surface) : Thread() {
+    private class VideoPlayerThread(var surface: Surface) : Thread() {
 
         private lateinit var decoder: MediaCodec
 
@@ -88,8 +88,7 @@ class MainActivity : AppCompatActivity(), SurfaceHolder.Callback {
                     }
                 }
 
-                val outIndex = decoder.dequeueOutputBuffer(info, 1000)
-                when (outIndex) {
+                when (val outIndex = decoder.dequeueOutputBuffer(info, 1000)) {
                     MediaCodec.INFO_OUTPUT_BUFFERS_CHANGED ->
                         outputBuffers = decoder.outputBuffers
                     MediaCodec.INFO_OUTPUT_FORMAT_CHANGED ->
