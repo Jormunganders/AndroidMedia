@@ -3,13 +3,17 @@ package me.juhezi.mediademo
 import android.media.MediaCodec
 import android.media.MediaExtractor
 import android.media.MediaFormat
+import android.media.MediaMuxer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Surface
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import java.io.File
+import java.nio.ByteBuffer
 
 const val URL = "/storage/emulated/0/in.mp4"
+const val OUT_URL = "/storage/emulated/0/out.mp4"
 const val TAG = "Juhezi"
 
 class MainActivity : AppCompatActivity(), SurfaceHolder.Callback {
@@ -21,13 +25,16 @@ class MainActivity : AppCompatActivity(), SurfaceHolder.Callback {
         val surfaceView = SurfaceView(this)
         surfaceView.holder.addCallback(this)
         setContentView(surfaceView)
+        Thread {
+            process()
+        }.start()
     }
 
     override fun surfaceChanged(holder: SurfaceHolder?, format: Int, width: Int, height: Int) {
-        if (videoPlayerThread == null) {
+        /*if (videoPlayerThread == null) {
             videoPlayerThread = VideoPlayerThread(holder!!.surface)
             videoPlayerThread!!.start()
-        }
+        }*/
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder?) {
@@ -65,7 +72,7 @@ class MainActivity : AppCompatActivity(), SurfaceHolder.Callback {
                     val inIndex = decoder.dequeueInputBuffer(1000)
                     if (inIndex >= 0) {
                         val buffer = inputBuffers[inIndex]
-                        val sampleSize = extractor.readSampleData(buffer, 0)
+                        val sampleSize = extractor.readSampleData(buffer, 0)    // 读取数据到 buffer 中
                         if (sampleSize < 0) {
                             decoder.queueInputBuffer(
                                 inIndex,
@@ -83,7 +90,7 @@ class MainActivity : AppCompatActivity(), SurfaceHolder.Callback {
                                 extractor.sampleTime,
                                 0
                             )
-                            extractor.advance()
+                            extractor.advance() // 读取下一帧数据
                         }
                     }
                 }
@@ -114,6 +121,57 @@ class MainActivity : AppCompatActivity(), SurfaceHolder.Callback {
             extractor.release()
         }
 
+    }
+
+
+    //----- 把 MP4 文件中的视频轨提取出来
+
+    private fun process(): Boolean {
+        var extractor = MediaExtractor()
+        var muxer: MediaMuxer? = null
+        extractor.setDataSource(URL)
+
+        var videoIndex = -1
+        var frameRate = 0
+        for (i in 0 until extractor.trackCount) {
+            var format = extractor.getTrackFormat(i)
+            var mime = format.getString(MediaFormat.KEY_MIME)
+            if (!mime.startsWith("video/")) {
+                continue
+            }
+            frameRate = format.getInteger(MediaFormat.KEY_FRAME_RATE)
+            extractor.selectTrack(i)
+            File(OUT_URL).delete()
+            muxer = MediaMuxer(OUT_URL, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4)
+            videoIndex = muxer.addTrack(format)
+            muxer.start()
+        }
+
+        if (muxer == null) {
+            return false
+        }
+
+        var info = MediaCodec.BufferInfo()
+        info.presentationTimeUs = 0 // pts
+        var buffer = ByteBuffer.allocate(500 * 1024)
+        var sampleSize = extractor.readSampleData(buffer, 0)
+        while (sampleSize > 0) {
+            info.offset = 0
+            info.size = sampleSize
+            info.flags = MediaCodec.BUFFER_FLAG_SYNC_FRAME
+            info.presentationTimeUs += 1000 * 1000 / frameRate
+
+            muxer.writeSampleData(videoIndex, buffer, info)
+            extractor.advance()
+
+            // 这是一个比较丑陋的循环，Kotlin 不支持
+            sampleSize = extractor.readSampleData(buffer, 0)
+        }
+
+        extractor.release()
+        muxer.stop()
+        muxer.release()
+        return true
     }
 
 }
