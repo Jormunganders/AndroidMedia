@@ -16,3 +16,15 @@ fun loge(tag: String, message: String) {
         Log.e(tag, message)
     }
 }
+
+fun logw(tag: String, message: String) {
+    if (LOG || BuildConfig.DEBUG) {
+        Log.w(tag, message)
+    }
+}
+
+fun logd(tag: String, message: String) {
+    if (LOG || BuildConfig.DEBUG) {
+        Log.d(tag, message)
+    }
+}

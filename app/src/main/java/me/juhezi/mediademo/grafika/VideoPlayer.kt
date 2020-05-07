@@ -10,7 +10,6 @@ import me.juhezi.mediademo.media.utils.TrackType
 import me.juhezi.mediademo.media.utils.loge
 import me.juhezi.mediademo.media.utils.logi
 import me.juhezi.mediademo.media.utils.selectTrack
-import java.io.IOException
 
 /**
  * 简易版视频播放器
@@ -18,7 +17,7 @@ import java.io.IOException
 class VideoPlayer(
     private val mSourcePath: String,
     private val mOutputSurface: Surface,
-    private val mFrameCallback: FrameCallback
+    private val mFrameCallback: FrameCallback?
 ) {
 
     val TIMEOUT_USEC = 10000L
@@ -99,14 +98,14 @@ class VideoPlayer(
         var firstInputTimeNsec = -1L
 
         var outputDone = false
-        var intputDone = false
+        var inputDone = false
 
         while (!outputDone) {
             if (isStopRequested) {
                 logi(TAG, "Stop Request")
                 return
             }
-            if (!intputDone) {
+            if (!inputDone) {
                 val inputIndex = decoder.dequeueInputBuffer(TIMEOUT_USEC)
                 if (inputIndex >= 0) {
                     if (firstInputTimeNsec == -1L) {
@@ -125,7 +124,7 @@ class VideoPlayer(
                             0L,
                             MediaCodec.BUFFER_FLAG_END_OF_STREAM
                         )
-                        intputDone = true
+                        inputDone = true
                         logi(TAG, "Send input EOS")
                     } else {
                         val pts = extractor.sampleTime
@@ -192,20 +191,20 @@ class VideoPlayer(
 
                     val doRender = (mBufferInfo.size != 0)
                     if (doRender) {
-                        mFrameCallback.preRender(mBufferInfo.presentationTimeUs)
+                        mFrameCallback?.preRender(mBufferInfo.presentationTimeUs)
                     }
                     // 调用 releaseOutputBuffer 的时候，
                     // Buffer 就会转发到 SurfaceTexture 并且转化为一个 Texture
                     decoder.releaseOutputBuffer(decoderStatus, doRender)
                     if (doRender) {
-                        mFrameCallback.postRender()
+                        mFrameCallback?.postRender()
                     }
                     if (doLoop) {
                         logi(TAG, "Reached EOS，looping")
                         extractor.seekTo(0, MediaExtractor.SEEK_TO_CLOSEST_SYNC)
-                        outputDone = false
+                        inputDone = false
                         decoder.flush() // 重置 decoder 状态
-                        mFrameCallback.loopReset()
+                        mFrameCallback?.loopReset()
                     }
                 }
             }
