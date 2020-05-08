@@ -14,6 +14,8 @@ const val URL = "/storage/emulated/0/in.mp4"
 const val OUT_URL = "/storage/emulated/0/out.mp4"
 const val TAG = "Juhezi"
 
+const val KEY_URL = "key_url"
+
 class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListener,
     VideoPlayer.PlayerFeedback {
 
@@ -22,9 +24,12 @@ class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListe
     private var surfaceTextureReady = false
     private var isPlaying = false
 
+    var url: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.demo_activity_video_play)
+        url = intent.getStringExtra(KEY_URL)
         video_play_texture_view.surfaceTextureListener = this
         updateButtonState()
         video_play_button.setOnClickListener {
@@ -38,7 +43,7 @@ class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListe
                 val surface = Surface(st)
                 val callback = SpeedControlCallback()
 //                callback.setFps(60)
-                val player = VideoPlayer(URL, surface, callback)
+                val player = VideoPlayer(if (url == null) URL else url!!, surface, callback)
                 playTask = PlayTask(player, this)
                 playTask!!.setLoopMode(true)
                 playTask!!.execute()
