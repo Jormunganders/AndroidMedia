@@ -68,3 +68,7 @@ task printAppType {
         println "Lib"
     }
 }
+
+task demo {
+    println project.getAllprojects()
+}

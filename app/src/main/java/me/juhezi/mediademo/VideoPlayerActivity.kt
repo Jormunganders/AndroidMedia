@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.Surface
 import android.view.TextureView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_video_play.*
+import kotlinx.android.synthetic.main.demo_activity_video_play.*
 import me.juhezi.mediademo.grafika.PlayTask
 import me.juhezi.mediademo.grafika.SpeedControlCallback
 import me.juhezi.mediademo.grafika.VideoPlayer
@@ -24,7 +24,7 @@ class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_video_play)
+        setContentView(R.layout.demo_activity_video_play)
         video_play_texture_view.surfaceTextureListener = this
         updateButtonState()
         video_play_button.setOnClickListener {

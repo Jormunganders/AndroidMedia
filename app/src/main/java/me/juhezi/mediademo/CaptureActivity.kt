@@ -7,7 +7,7 @@ class CaptureActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_capture)
+        setContentView(R.layout.demo_activity_capture)
     }
 
 }
