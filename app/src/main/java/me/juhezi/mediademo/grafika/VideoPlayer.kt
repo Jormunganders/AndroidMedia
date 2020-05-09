@@ -20,7 +20,7 @@ class VideoPlayer(
     private val mFrameCallback: FrameCallback?
 ) {
 
-    val TIMEOUT_USEC = 10000L
+    private val TIMEOUT_USEC = 10000L
 
     private val mBufferInfo = MediaCodec.BufferInfo()
     @Volatile
