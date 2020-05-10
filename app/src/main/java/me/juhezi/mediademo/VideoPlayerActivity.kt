@@ -1,14 +1,24 @@
 package me.juhezi.mediademo
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.graphics.SurfaceTexture
 import android.os.Bundle
+import android.util.Log
 import android.view.Surface
 import android.view.TextureView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.demo_activity_video_play.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import me.juhezi.mediademo.grafika.PlayTask
 import me.juhezi.mediademo.grafika.SpeedControlCallback
 import me.juhezi.mediademo.grafika.VideoPlayer
+import me.juhezi.mediademo.media.utils.logi
 
 const val URL = "/storage/emulated/0/in.mp4"
 const val OUT_URL = "/storage/emulated/0/out.mp4"
@@ -17,9 +27,10 @@ const val TAG = "Juhezi"
 const val KEY_URL = "key_url"
 
 class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListener,
-    VideoPlayer.PlayerFeedback {
+    VideoPlayer.PlayerFeedback, CoroutineScope by MainScope() {
 
     var playTask: PlayTask? = null
+    var player: VideoPlayer? = null
 
     private var surfaceTextureReady = false
     private var isPlaying = false
@@ -30,6 +41,18 @@ class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListe
         super.onCreate(savedInstanceState)
         setContentView(R.layout.demo_activity_video_play)
         url = intent.getStringExtra(KEY_URL)
+
+        // 申请权限
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                123
+            )
+        }
         video_play_texture_view.surfaceTextureListener = this
         updateButtonState()
         video_play_button.setOnClickListener {
@@ -43,11 +66,23 @@ class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListe
                 val surface = Surface(st)
                 val callback = SpeedControlCallback()
 //                callback.setFps(60)
-                val player = VideoPlayer(if (url == null) URL else url!!, surface, callback)
+                player = VideoPlayer(if (url == null) URL else url!!, surface, callback)
                 playTask = PlayTask(player, this)
                 playTask!!.setLoopMode(true)
                 playTask!!.execute()
                 isPlaying = true
+            }
+        }
+        video_test_button.setOnClickListener {
+            logi(TAG, "Click Test")
+            val start = System.currentTimeMillis()
+            launch {
+                val size = player?.getVideoSize()
+                logi(
+                    TAG,
+                    "size is ${size?.first}x${size?.second}\ttime is ${System.currentTimeMillis() - start}"
+                )
+                // TODO: 2020/5/10 更新 TextureView 的缩放
             }
         }
     }
@@ -88,6 +123,11 @@ class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListe
             stopPlayback()
             playTask!!.waitForStop()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        cancel()
     }
 
 

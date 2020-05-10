@@ -6,10 +6,16 @@ import android.media.MediaFormat
 import android.os.Handler
 import android.os.Message
 import android.view.Surface
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.withTimeoutOrNull
 import me.juhezi.mediademo.media.utils.TrackType
 import me.juhezi.mediademo.media.utils.loge
 import me.juhezi.mediademo.media.utils.logi
 import me.juhezi.mediademo.media.utils.selectTrack
+import java.io.File
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 /**
  * 简易版视频播放器
@@ -20,14 +26,22 @@ class VideoPlayer(
     private val mFrameCallback: FrameCallback?
 ) {
 
+    init {
+        var file = File(mSourcePath)
+        logi("Juhezi", "" + file.exists())
+    }
+
     private val TIMEOUT_USEC = 10000L
 
     private val mBufferInfo = MediaCodec.BufferInfo()
+
     @Volatile
     private var isStopRequested = false
     var loop = false
-    var videoHeight = 0
-    var videoWidth = 0
+    private var videoHeight = 0
+    private var videoWidth = 0
+
+    var sizeAvailable: ((Pair<Int, Int>) -> Unit)? = null
 
     interface PlayerFeedback {
         // TODO: 2020-04-17 调用时机
@@ -65,6 +79,19 @@ class VideoPlayer(
         isStopRequested = true
     }
 
+    suspend fun getVideoSize() = withTimeoutOrNull(5_000) {
+        suspendCancellableCoroutine<Pair<Int, Int>> { cont ->
+            if (videoHeight == 0 && videoWidth == 0) {
+                sizeAvailable = {
+                    cont.resume(it)
+                    sizeAvailable = null
+                }
+            } else {
+                cont.resume(videoWidth to videoHeight)
+            }
+        }
+    }
+
     fun play() {
         var extractor: MediaExtractor? = null
         var decoder: MediaCodec? = null
@@ -76,6 +103,7 @@ class VideoPlayer(
             val format = extractor.getTrackFormat(trackIndex)
             videoWidth = format.getInteger(MediaFormat.KEY_WIDTH)
             videoHeight = format.getInteger(MediaFormat.KEY_HEIGHT)
+            sizeAvailable?.invoke(videoWidth to videoHeight)
             logi(TAG, "Video size is $videoWidth x $videoHeight")
             decoder = MediaCodec.createDecoderByType(
                 format.getString(MediaFormat.KEY_MIME)
