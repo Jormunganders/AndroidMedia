@@ -7,29 +7,33 @@ import android.os.Handler
 import android.os.Message
 import android.view.Surface
 import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlinx.coroutines.withTimeout
 import kotlinx.coroutines.withTimeoutOrNull
 import me.juhezi.mediademo.media.utils.TrackType
 import me.juhezi.mediademo.media.utils.loge
 import me.juhezi.mediademo.media.utils.logi
 import me.juhezi.mediademo.media.utils.selectTrack
-import java.io.File
+import java.io.FileDescriptor
+import java.lang.Exception
 import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 /**
  * 简易版视频播放器
  */
 class VideoPlayer(
-    private val mSourcePath: String,
-    private val mOutputSurface: Surface,
-    private val mFrameCallback: FrameCallback?
+    private val sourcePath: String?,
+    private val outputSurface: Surface,
+    private val frameCallback: FrameCallback?
 ) {
 
-    init {
-        var file = File(mSourcePath)
-        logi("Juhezi", "" + file.exists())
+    constructor(
+        sourceFileDescriptor: FileDescriptor,
+        outputSurface: Surface,
+        frameCallback: FrameCallback?
+    ) : this(null, outputSurface, frameCallback) {
+        this.sourceFD = sourceFileDescriptor
     }
+
+    private var sourceFD: FileDescriptor? = null
 
     private val TIMEOUT_USEC = 10000L
 
@@ -97,7 +101,17 @@ class VideoPlayer(
         var decoder: MediaCodec? = null
         try {
             extractor = MediaExtractor()
-            extractor.setDataSource(mSourcePath)
+            when {
+                sourcePath != null -> {
+                    extractor.setDataSource(sourcePath)
+                }
+                sourceFD != null -> {
+                    extractor.setDataSource(sourceFD!!)
+                }
+                else -> {
+                    throw Exception("Source is null!")
+                }
+            }
             val trackIndex = extractor.selectTrack(TrackType.Video)
             extractor.selectTrack(trackIndex)
             val format = extractor.getTrackFormat(trackIndex)
@@ -108,7 +122,7 @@ class VideoPlayer(
             decoder = MediaCodec.createDecoderByType(
                 format.getString(MediaFormat.KEY_MIME)
             )
-            decoder.configure(format, mOutputSurface, null, 0)
+            decoder.configure(format, outputSurface, null, 0)
             decoder.start()
             doExtract(extractor, decoder)
         } finally {
@@ -219,20 +233,20 @@ class VideoPlayer(
 
                     val doRender = (mBufferInfo.size != 0)
                     if (doRender) {
-                        mFrameCallback?.preRender(mBufferInfo.presentationTimeUs)
+                        frameCallback?.preRender(mBufferInfo.presentationTimeUs)
                     }
                     // 调用 releaseOutputBuffer 的时候，
                     // Buffer 就会转发到 SurfaceTexture 并且转化为一个 Texture
                     decoder.releaseOutputBuffer(decoderStatus, doRender)
                     if (doRender) {
-                        mFrameCallback?.postRender()
+                        frameCallback?.postRender()
                     }
                     if (doLoop) {
                         logi(TAG, "Reached EOS，looping")
                         extractor.seekTo(0, MediaExtractor.SEEK_TO_CLOSEST_SYNC)
                         inputDone = false
                         decoder.flush() // 重置 decoder 状态
-                        mFrameCallback?.loopReset()
+                        frameCallback?.loopReset()
                     }
                 }
             }

@@ -11,9 +11,16 @@
         android:text="播放视频" />
 
     <Button
-        android:id="@+id/button_capture"
+        android:id="@+id/button_pick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="拍摄" />
+        android:text="选择" />
+
+    <ImageView
+        android:id="@+id/image_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>
