@@ -4,22 +4,27 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Matrix
 import android.graphics.SurfaceTexture
+import android.media.MediaScannerConnection
+import android.net.Uri
 import android.os.Bundle
+import android.os.ParcelFileDescriptor
+import android.util.Log
 import android.view.Surface
 import android.view.TextureView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import kotlinx.android.synthetic.main.demo_activity_video_play.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import me.juhezi.mediademo.grafika.PlayTask
 import me.juhezi.mediademo.grafika.SpeedControlCallback
 import me.juhezi.mediademo.grafika.VideoPlayer
 import me.juhezi.mediademo.media.utils.loge
 import me.juhezi.mediademo.media.utils.logi
+import java.io.File
+import java.io.FileDescriptor
+import kotlin.coroutines.resume
 
 const val URL = "/storage/emulated/0/in.mp4"
 const val OUT_URL = "/storage/emulated/0/out.mp4"
@@ -63,16 +68,23 @@ class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListe
                 if (playTask != null) {
                     return@setOnClickListener
                 }
-                val st = video_play_texture_view.surfaceTexture
-                val surface = Surface(st)
-                val callback = SpeedControlCallback()
+                launch {
+                    val st = video_play_texture_view.surfaceTexture
+                    val surface = Surface(st)
+                    val callback = SpeedControlCallback()
 //                callback.setFps(60)
-                player = VideoPlayer(if (url == null) URL else url!!, surface, callback)
-                playTask = PlayTask(player, this)
-                playTask!!.setLoopMode(true)
-                playTask!!.execute()
-                adjustTextureView()
-                isPlaying = true
+                    val fd = getVideoFD()
+                    player = if (fd == null) {
+                        VideoPlayer(fd, surface, callback)
+                    } else {
+                        VideoPlayer(url ?: URL, surface, callback)
+                    }
+                    playTask = PlayTask(player, this@VideoPlayerActivity)
+                    playTask!!.setLoopMode(true)
+                    playTask!!.execute()
+                    adjustTextureView()
+                    isPlaying = true
+                }
             }
         }
         video_test_button.setOnClickListener {
@@ -83,7 +95,26 @@ class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListe
                     TAG,
                     "size is ${size?.first}x${size?.second}\ttime is ${System.currentTimeMillis() - start}"
                 )
-                // TODO: 2020/5/10 更新 TextureView 的缩放
+            }
+        }
+    }
+
+    /**
+     * 这个方法不太行
+     */
+    private suspend fun getVideoFD() = withTimeoutOrNull(5_000) {
+        suspendCancellableCoroutine<FileDescriptor> { cont ->
+            MediaScannerConnection.scanFile(
+                this@VideoPlayerActivity,
+                arrayOf(url ?: URL),
+                arrayOf("video/mp4")
+            ) { path, uri ->
+                logi(TAG, "path is $path")
+                logi(TAG, "uri is $url")
+                val parcelFileDescriptor: ParcelFileDescriptor =
+                    contentResolver.openFileDescriptor(uri, "r")!!
+                val fileDescriptor: FileDescriptor = parcelFileDescriptor.fileDescriptor
+                cont.resume(fileDescriptor)
             }
         }
     }
