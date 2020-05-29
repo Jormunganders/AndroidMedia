@@ -11,7 +11,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import me.juhezi.mediademo.Constants
-import me.juhezi.mediademo.media.utils.loge
+import me.juhezi.mediademo.loge
 import java.io.*
 import java.util.*
 

@@ -5,24 +5,18 @@ import android.content.pm.PackageManager
 import android.graphics.Matrix
 import android.graphics.SurfaceTexture
 import android.media.MediaScannerConnection
-import android.net.Uri
 import android.os.Bundle
 import android.os.ParcelFileDescriptor
-import android.util.Log
 import android.view.Surface
 import android.view.TextureView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import kotlinx.android.synthetic.main.demo_activity_video_play.*
 import kotlinx.coroutines.*
 import me.juhezi.mediademo.grafika.PlayTask
 import me.juhezi.mediademo.grafika.SpeedControlCallback
 import me.juhezi.mediademo.grafika.VideoPlayer
-import me.juhezi.mediademo.media.utils.loge
-import me.juhezi.mediademo.media.utils.logi
-import java.io.File
 import java.io.FileDescriptor
 import kotlin.coroutines.resume
 

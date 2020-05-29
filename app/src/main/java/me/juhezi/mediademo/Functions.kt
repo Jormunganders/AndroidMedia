@@ -1,10 +1,6 @@
-package me.juhezi.mediademo.media.utils
+package me.juhezi.mediademo
 
-import android.content.Context
-import android.net.Uri
-import android.provider.MediaStore
 import android.util.Log
-import me.juhezi.mediademo.BuildConfig
 
 const val LOG = true
 
@@ -31,7 +27,3 @@ fun logd(tag: String, message: String) {
         Log.d(tag, message)
     }
 }
-
-// 使用 id 拼出 content uri
-fun getContentUri(id: String) = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-    .buildUpon().appendPath(id).build()

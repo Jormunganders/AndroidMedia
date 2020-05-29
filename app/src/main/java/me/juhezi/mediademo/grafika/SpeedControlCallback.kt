@@ -1,9 +1,8 @@
 package me.juhezi.mediademo.grafika
 
-import android.util.Log
-import me.juhezi.mediademo.media.utils.logd
-import me.juhezi.mediademo.media.utils.loge
-import me.juhezi.mediademo.media.utils.logi
+import me.juhezi.mediademo.logd
+import me.juhezi.mediademo.loge
+import me.juhezi.mediademo.logi
 import kotlin.math.abs
 
 private const val ONE_MILLION = 1000000L

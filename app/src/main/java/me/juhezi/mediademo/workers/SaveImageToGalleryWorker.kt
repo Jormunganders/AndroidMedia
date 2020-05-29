@@ -10,7 +10,7 @@ import androidx.work.Data
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import me.juhezi.mediademo.Constants
-import me.juhezi.mediademo.media.utils.loge
+import me.juhezi.mediademo.loge
 import java.text.SimpleDateFormat
 import java.util.*
 

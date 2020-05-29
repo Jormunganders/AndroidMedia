@@ -7,17 +7,13 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.ParcelFileDescriptor
-import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.demo_activity_main.*
 import kotlinx.coroutines.*
-import me.juhezi.mediademo.media.utils.logi
-import me.juhezi.mediademo.media.utils.logw
 import java.io.FileDescriptor
 import java.io.IOException
-import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
@@ -50,7 +46,10 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 launch {
                     image_display.setImageBitmap(getBitmapFromUri(it))
                 }
-                logw(TAG, "host:${it.host}\tpath:${it.path}\tscheme:${it.scheme}")
+                logw(
+                    TAG,
+                    "host:${it.host}\tpath:${it.path}\tscheme:${it.scheme}"
+                )
             }
         }
     }
@@ -77,7 +76,10 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
     @Throws(IOException::class)
     private suspend fun getBitmapFromUri(uri: Uri): Bitmap? = withContext(Dispatchers.IO) {
-        logi(TAG, "getBitmapFromUri Thread: ${Thread.currentThread()}")
+        logi(
+            TAG,
+            "getBitmapFromUri Thread: ${Thread.currentThread()}"
+        )
         val parcelFileDescriptor: ParcelFileDescriptor =
             contentResolver.openFileDescriptor(uri, "r")!!
         val fileDescriptor: FileDescriptor = parcelFileDescriptor.fileDescriptor

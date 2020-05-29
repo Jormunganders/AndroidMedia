@@ -9,8 +9,8 @@ import android.view.Surface
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withTimeoutOrNull
 import me.juhezi.mediademo.media.utils.TrackType
-import me.juhezi.mediademo.media.utils.loge
-import me.juhezi.mediademo.media.utils.logi
+import me.juhezi.mediademo.loge
+import me.juhezi.mediademo.logi
 import me.juhezi.mediademo.media.utils.selectTrack
 import java.io.FileDescriptor
 import java.lang.Exception
@@ -118,7 +118,10 @@ class VideoPlayer(
             videoWidth = format.getInteger(MediaFormat.KEY_WIDTH)
             videoHeight = format.getInteger(MediaFormat.KEY_HEIGHT)
             sizeAvailable?.invoke(videoWidth to videoHeight)
-            logi(TAG, "Video size is $videoWidth x $videoHeight")
+            logi(
+                TAG,
+                "Video size is $videoWidth x $videoHeight"
+            )
             decoder = MediaCodec.createDecoderByType(
                 format.getString(MediaFormat.KEY_MIME)
             )
@@ -191,9 +194,15 @@ class VideoPlayer(
             if (!outputDone) {
                 val decoderStatus = decoder.dequeueOutputBuffer(mBufferInfo, TIMEOUT_USEC)
                 if (decoderStatus == MediaCodec.INFO_TRY_AGAIN_LATER) { // no output available yet
-                    logi(TAG, "no output from decoder available")
+                    logi(
+                        TAG,
+                        "no output from decoder available"
+                    )
                 } else if (decoderStatus == MediaCodec.INFO_OUTPUT_BUFFERS_CHANGED) { // not important for us, since we're using Surface
-                    logi(TAG, "decoder output buffers changed")
+                    logi(
+                        TAG,
+                        "decoder output buffers changed"
+                    )
                 } else if (decoderStatus == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {
                     val newFormat: MediaFormat = decoder.outputFormat
                     logi(
@@ -201,7 +210,10 @@ class VideoPlayer(
                                 "$newFormat"
                     )
                 } else if (decoderStatus < 0) {
-                    loge(TAG, "Unexpected result from decoder.dequeueOutputBuffer: $decoderStatus")
+                    loge(
+                        TAG,
+                        "Unexpected result from decoder.dequeueOutputBuffer: $decoderStatus"
+                    )
                 } else {    // decoderStatus >= 0
                     if (firstInputTimeNsec != 0L) {
                         // Log the delay from the first buffer of input to the first buffer
