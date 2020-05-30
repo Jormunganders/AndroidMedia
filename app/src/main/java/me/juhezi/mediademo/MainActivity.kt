@@ -32,6 +32,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
             }
             startActivityForResult(intent, 123)
         }
+        button_litho.setOnClickListener {
+            startActivity(Intent(this, LithoActivity::class.java))
+        }
     }
 
     override fun onActivityResult(
@@ -93,7 +96,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         super.onDestroy()
         cancel()
     }
-
 
 
 }

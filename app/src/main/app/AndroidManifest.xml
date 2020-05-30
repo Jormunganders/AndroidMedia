@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".VideoPlayerActivity" />
         <activity android:name=".CaptureActivity" />
+
+        <activity android:name=".LithoActivity" />
     </application>
 
 </manifest>

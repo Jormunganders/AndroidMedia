@@ -11,6 +11,12 @@
         android:text="播放视频" />
 
     <Button
+        android:id="@+id/button_litho"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LITHO" />
+
+    <Button
         android:id="@+id/button_pick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
