@@ -2,6 +2,8 @@ package me.juhezi.mediademo.media.utils
 
 import android.media.MediaExtractor
 import android.media.MediaFormat
+import android.net.Uri
+import me.juhezi.mediademo.isTrue
 
 enum class TrackType(val mime: String) {
     Video("video/"),
