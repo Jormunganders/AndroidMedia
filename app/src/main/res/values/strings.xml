@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">🐂🍺Plus</string>
+    <string name="title_activity_compose_demo">Compose Demo</string>
 </resources>

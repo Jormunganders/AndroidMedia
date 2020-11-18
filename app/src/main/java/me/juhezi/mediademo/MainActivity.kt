@@ -1,5 +1,6 @@
 package me.juhezi.mediademo
 
+import android.app.Activity
 import android.content.Intent
 import android.database.Cursor
 import android.graphics.Bitmap
@@ -9,8 +10,10 @@ import android.os.Bundle
 import android.os.ParcelFileDescriptor
 import android.provider.OpenableColumns
 import android.util.Log
+import android.view.View
+import android.widget.ImageView
+import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.demo_activity_main.*
 import kotlinx.coroutines.*
 import java.io.FileDescriptor
 import java.io.IOException
@@ -22,18 +25,21 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.demo_activity_main)
-        button_video_player.setOnClickListener {
+        id(R.id.button_video_player).setOnClickListener {
             startActivity(Intent(this, VideoPlayerActivity::class.java))
         }
-        button_pick.setOnClickListener {
+        id(R.id.button_pick).setOnClickListener {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
                 type = "*/*"
             }
             startActivityForResult(intent, 123)
         }
-        button_litho.setOnClickListener {
+        id(R.id.button_litho).setOnClickListener {
             startActivity(Intent(this, LithoActivity::class.java))
+        }
+        id(R.id.button_compose_demo).setOnClickListener {
+            startActivity(Intent(this, ComposeDemoActivity::class.java))
         }
     }
 
@@ -47,7 +53,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 logi(TAG, "Uri $it")
                 dumpImageMetaData(it)
                 launch {
-                    image_display.setImageBitmap(getBitmapFromUri(it))
+                    findViewById<ImageView>(R.id.image_display).setImageBitmap(getBitmapFromUri(it))
                 }
                 logw(
                     TAG,
@@ -99,6 +105,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
 
 }
+
+fun Activity.id(@IdRes id: Int) = findViewById<View>(id)
+
 
 /*
 Image: content://com.android.providers.media.documents/document/image%3A150999

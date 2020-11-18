@@ -123,7 +123,7 @@ class VideoPlayer(
                 "Video size is $videoWidth x $videoHeight"
             )
             decoder = MediaCodec.createDecoderByType(
-                format.getString(MediaFormat.KEY_MIME)
+                format.getString(MediaFormat.KEY_MIME) ?: ""
             )
             decoder.configure(format, outputSurface, null, 0)
             decoder.start()

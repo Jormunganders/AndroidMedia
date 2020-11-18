@@ -9,10 +9,10 @@ import android.os.Bundle
 import android.os.ParcelFileDescriptor
 import android.view.Surface
 import android.view.TextureView
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import kotlinx.android.synthetic.main.demo_activity_video_play.*
 import kotlinx.coroutines.*
 import me.juhezi.mediademo.grafika.PlayTask
 import me.juhezi.mediademo.grafika.SpeedControlCallback
@@ -37,6 +37,9 @@ class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListe
 
     var url: String? = null
 
+    private lateinit var mTextureView: TextureView
+    private lateinit var mPlayButton: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.demo_activity_video_play)
@@ -53,9 +56,11 @@ class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListe
                 123
             )
         }
-        video_play_texture_view.surfaceTextureListener = this
+        mTextureView = findViewById<TextureView>(R.id.video_play_texture_view)
+        mPlayButton = findViewById(R.id.video_play_button)
+        mTextureView.surfaceTextureListener = this
         updateButtonState()
-        video_play_button.setOnClickListener {
+        mPlayButton.setOnClickListener {
             if (isPlaying) {
                 stopPlayback()
             } else {
@@ -63,7 +68,7 @@ class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListe
                     return@setOnClickListener
                 }
                 launch {
-                    val st = video_play_texture_view.surfaceTexture
+                    val st = mTextureView.surfaceTexture
                     val surface = Surface(st)
                     val callback = SpeedControlCallback()
 //                callback.setFps(60)
@@ -81,7 +86,7 @@ class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListe
                 }
             }
         }
-        video_test_button.setOnClickListener {
+        id(R.id.video_test_button).setOnClickListener {
             val start = System.currentTimeMillis()
             launch {
                 val size = player?.getVideoSize()
@@ -117,7 +122,7 @@ class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListe
      * 调整 TextureView，恶心无比的逻辑
      */
     private fun adjustTextureView() =
-        video_play_texture_view.post {
+        mTextureView.post {
             launch {
                 val pair = player?.getVideoSize()
                 if (pair == null) {
@@ -127,8 +132,8 @@ class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListe
                 // 获取旋转角度
                 val rotation = 0
 
-                val viewWidth = video_play_texture_view.width
-                val viewHeight = video_play_texture_view.height
+                val viewWidth = mTextureView.width
+                val viewHeight = mTextureView.height
                 var videoWidth = pair.first
                 var videoHeight = pair.second
                 var initWidth = viewWidth // 初始宽高
@@ -166,39 +171,39 @@ class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListe
                     viewWidth / 2f,
                     viewHeight / 2f
                 )
-                video_play_texture_view.setTransform(matrix)
+                mTextureView.setTransform(matrix)
             }
 
         }
 
     private fun updateButtonState() {
-        video_play_button.isEnabled = surfaceTextureReady
+        mPlayButton.isEnabled = surfaceTextureReady
     }
 
 
     override fun onSurfaceTextureSizeChanged(
-        surface: SurfaceTexture?, width: Int, height: Int
+        surface: SurfaceTexture, width: Int, height: Int
     ) {
     }
 
     override fun onSurfaceTextureUpdated(
-        surface: SurfaceTexture?
+        surface: SurfaceTexture
     ) {
     }
 
     override fun onSurfaceTextureDestroyed(
-        surface: SurfaceTexture?
+        surface: SurfaceTexture
     ): Boolean {
         surfaceTextureReady = false
-        video_play_button.isEnabled = surfaceTextureReady
+        mPlayButton.isEnabled = surfaceTextureReady
         return true
     }
 
     override fun onSurfaceTextureAvailable(
-        surface: SurfaceTexture?, width: Int, height: Int
+        surface: SurfaceTexture, width: Int, height: Int
     ) {
         surfaceTextureReady = true
-        video_play_button.isEnabled = surfaceTextureReady
+        mPlayButton.isEnabled = surfaceTextureReady
     }
 
     override fun onStop() {
