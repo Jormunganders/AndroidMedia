@@ -3,6 +3,7 @@ package me.juhezi.mediademo
 import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Matrix
+import android.graphics.Path
 import android.graphics.SurfaceTexture
 import android.media.MediaScannerConnection
 import android.os.Bundle
@@ -71,9 +72,9 @@ class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListe
                     val st = mTextureView.surfaceTexture
                     val surface = Surface(st)
                     val callback = SpeedControlCallback()
-//                callback.setFps(60)
-                    val fd = getVideoFD()
-                    player = if (fd == null) {
+                    callback.setFps(60)
+                    val fd = parsePath2FD(url ?: URL)
+                    player = if (fd != null) {
                         VideoPlayer(fd, surface, callback)
                     } else {
                         VideoPlayer(url ?: URL, surface, callback)
@@ -98,9 +99,7 @@ class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListe
         }
     }
 
-    /**
-     * 这个方法不太行
-     */
+    @Deprecated("这个方法不太行")
     private suspend fun getVideoFD() = withTimeoutOrNull(5_000) {
         suspendCancellableCoroutine<FileDescriptor> { cont ->
             MediaScannerConnection.scanFile(
@@ -117,6 +116,14 @@ class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListe
             }
         }
     }
+
+    private fun parsePath2FD(path: String) = getFDFromUri(
+        this@VideoPlayerActivity,
+        getVideoUriFromPath(
+            this@VideoPlayerActivity,
+            path
+        )
+    )
 
     /**
      * 调整 TextureView，恶心无比的逻辑
