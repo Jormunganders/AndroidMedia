@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera.any" />
 
     <application
         android:name=".App"
@@ -21,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".VideoPlayerActivity" />
-        <activity android:name=".CaptureActivity" />
+        <activity android:name=".media.camera.CaptureActivity" />
 
         <activity android:name=".LithoActivity" />
     </application>

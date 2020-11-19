@@ -12,6 +12,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.demo_activity_main.*
 import kotlinx.coroutines.*
+import me.juhezi.mediademo.media.camera.CaptureActivity
 import java.io.FileDescriptor
 import java.io.IOException
 
@@ -34,6 +35,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         }
         button_litho.setOnClickListener {
             startActivity(Intent(this, LithoActivity::class.java))
+        }
+        button_capture.setOnClickListener {
+            startActivity(Intent(this, CaptureActivity::class.java))
         }
     }
 
