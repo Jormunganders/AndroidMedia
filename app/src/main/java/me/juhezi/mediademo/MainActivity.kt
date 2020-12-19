@@ -1,5 +1,7 @@
 package me.juhezi.mediademo
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
 import android.database.Cursor
 import android.graphics.Bitmap
@@ -9,9 +11,12 @@ import android.os.Bundle
 import android.os.ParcelFileDescriptor
 import android.provider.OpenableColumns
 import android.util.Log
+import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.demo_activity_main.*
 import kotlinx.coroutines.*
+import me.juhezi.mediademo.kuaishou.AsyncCacheLayoutInflater
 import me.juhezi.mediademo.media.camera.CaptureActivity
 import java.io.FileDescriptor
 import java.io.IOException
@@ -20,6 +25,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
     val TAG = "Juhezi"
 
+    @ExperimentalStdlibApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.demo_activity_main)
@@ -39,6 +45,23 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         button_capture.setOnClickListener {
             startActivity(Intent(this, CaptureActivity::class.java))
         }
+        button_async_inflate.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+                .setView(
+                    AsyncCacheLayoutInflater.getCacheOrInflate(
+                        this,
+                        R.layout.layout_dialog_test,
+                        null
+                    )
+                )
+                .setCancelable(true)
+                .show()
+        }
+        AsyncCacheLayoutInflater.createAndCacheViewAsync(
+            this,
+            R.layout.layout_dialog_test,
+            null
+        )
     }
 
     override fun onActivityResult(

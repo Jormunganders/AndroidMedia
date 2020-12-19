@@ -4,30 +4,57 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button_video_player"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="播放视频" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_video_player"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/holo_blue_bright"
+            android:text="播放视频"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/button_litho"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/holo_blue_light"
+            android:text="LITHO"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/button_capture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/holo_blue_dark"
+            android:text="CameraX"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/button_pick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#0000FF"
+            android:text="选择照片"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
 
     <Button
-        android:id="@+id/button_litho"
+        android:id="@+id/button_async_inflate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LITHO" />
-
-    <Button
-        android:id="@+id/button_capture"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CameraX"
-        android:textAllCaps="false" />
-
-    <Button
-        android:id="@+id/button_pick"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="选择照片" />
+        android:backgroundTint="@android:color/holo_red_light"
+        android:text="异步加载布局"
+        android:textColor="@android:color/white" />
 
     <ImageView
         android:id="@+id/image_display"
