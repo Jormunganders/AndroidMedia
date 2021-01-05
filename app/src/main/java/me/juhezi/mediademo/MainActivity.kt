@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
             startActivity(Intent(this, CaptureActivity::class.java))
         }
         button_async_inflate.setOnClickListener {
-            val builder = AlertDialog.Builder(this)
+            AlertDialog.Builder(this)
                 .setView(
                     AsyncCacheLayoutInflater.getCacheOrInflate(
                         this,
