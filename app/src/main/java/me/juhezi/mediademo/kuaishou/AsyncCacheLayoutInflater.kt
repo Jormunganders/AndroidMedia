@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.asynclayoutinflater.view.AsyncLayoutInflater
+import me.juhezi.mediademo.R
 import me.juhezi.mediademo.logi
 
 @ExperimentalStdlibApi
@@ -21,10 +22,10 @@ object AsyncCacheLayoutInflater {
     fun getCacheOrInflate(
         context: Context,
         @LayoutRes layoutResId: Int,
-        container: ViewGroup?
+        container: ViewGroup? = null
     ): View {
         val view = viewCache.get(layoutResId)?.also {
-            log("命中缓存 $layoutResId")
+            log("命中缓存 ${context.resources.getResourceName(layoutResId)}")
         } ?: createView(context, layoutResId, container).also {
             log("没有命中缓存，同步加载")
         }
@@ -53,7 +54,7 @@ object AsyncCacheLayoutInflater {
             return
         }
         currentAsyncTasks.add(layoutResId)
-        log("开始缓存 $layoutResId")
+        log("开始缓存 ${context.resources.getResourceName(layoutResId)}")
         val mutableContext = MutableContextWrapper(context)
 
         Looper.myQueue().addIdleHandler {

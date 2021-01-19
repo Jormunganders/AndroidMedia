@@ -1,7 +1,6 @@
 package me.juhezi.mediademo
 
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Intent
 import android.database.Cursor
 import android.graphics.Bitmap
@@ -10,12 +9,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.ParcelFileDescriptor
 import android.provider.OpenableColumns
+import android.text.Html
 import android.util.Log
-import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.demo_activity_main.*
 import kotlinx.coroutines.*
+import me.juhezi.mediademo.broom.activity.V2EXActivity
 import me.juhezi.mediademo.kuaishou.AsyncCacheLayoutInflater
 import me.juhezi.mediademo.media.camera.CaptureActivity
 import java.io.FileDescriptor
@@ -23,12 +25,13 @@ import java.io.IOException
 
 class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
-    val TAG = "Juhezi"
+    private lateinit var mNumberLiveDate: MutableLiveData<Int>
 
     @ExperimentalStdlibApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.demo_activity_main)
+        mNumberLiveDate = MutableLiveData()
         button_video_player.setOnClickListener {
             startActivity(Intent(this, VideoPlayerActivity::class.java))
         }
@@ -57,11 +60,40 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 .setCancelable(true)
                 .show()
         }
+        button_v2ex.setOnClickListener { startActivity(Intent(this, V2EXActivity::class.java)) }
         AsyncCacheLayoutInflater.createAndCacheViewAsync(
             this,
             R.layout.layout_dialog_test,
             null
         )
+        AsyncCacheLayoutInflater.createAndCacheViewAsync(
+            this,
+            R.layout.layout_activity_v2ex,
+            null
+        )
+        text_live_data.paint.isFakeBoldText = true
+        lifecycle.addObserver(DemoObserver())
+        mNumberLiveDate.observe(this,
+            Observer<Int> {
+                logi(TAG,"LiveData Change: $it")
+                text_live_data.text = Html.fromHtml("S<font color='#FF5000'>$it</font>")
+            })
+        button_v2ex.setOnLongClickListener {
+            launch {
+                updateNumber()
+            }
+            true
+        }
+    }
+
+    private suspend fun updateNumber() = withContext(Dispatchers.IO) {
+        var number = 0
+        while (number < 13) {
+            delay(3000)
+            number++
+            mNumberLiveDate.postValue(number)
+            logi(TAG, "Thread: ${Thread.currentThread().name}\tNumber: $number")
+        }
     }
 
     override fun onActivityResult(
@@ -71,13 +103,13 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 123) {
             data?.data?.also {
-                logi(TAG, "Uri $it")
+                logi(Companion.TAG, "Uri $it")
                 dumpImageMetaData(it)
                 launch {
                     image_display.setImageBitmap(getBitmapFromUri(it))
                 }
                 logw(
-                    TAG,
+                    Companion.TAG,
                     "host:${it.host}\tpath:${it.path}\tscheme:${it.scheme}"
                 )
             }
@@ -92,14 +124,14 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
             if (it.moveToFirst()) {
                 val displayName: String =
                     it.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME))
-                Log.i(TAG, "Display Name: $displayName")
+                Log.i(Companion.TAG, "Display Name: $displayName")
                 val sizeIndex: Int = it.getColumnIndex(OpenableColumns.SIZE)
                 val size: String = if (!it.isNull(sizeIndex)) {
                     it.getString(sizeIndex)
                 } else {
                     "Unknown"
                 }
-                Log.i(TAG, "Size: $size")
+                Log.i(Companion.TAG, "Size: $size")
             }
         }
     }
@@ -107,13 +139,13 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     @Throws(IOException::class)
     private suspend fun getBitmapFromUri(uri: Uri): Bitmap? = withContext(Dispatchers.IO) {
         logi(
-            TAG,
+            Companion.TAG,
             "getBitmapFromUri Thread: ${Thread.currentThread()}"
         )
         val parcelFileDescriptor: ParcelFileDescriptor =
             contentResolver.openFileDescriptor(uri, "r")!!
         val fileDescriptor: FileDescriptor = parcelFileDescriptor.fileDescriptor
-        logi(TAG, "fd is $fileDescriptor")
+        logi(Companion.TAG, "fd is $fileDescriptor")
         val image: Bitmap? = BitmapFactory.decodeFileDescriptor(fileDescriptor)
         parcelFileDescriptor.close()
         return@withContext image
@@ -122,6 +154,10 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     override fun onDestroy() {
         super.onDestroy()
         cancel()
+    }
+
+    companion object {
+        const val TAG = "Juhezi"
     }
 
 

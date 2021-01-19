@@ -67,6 +67,20 @@
         android:text="异步加载布局"
         android:textColor="@android:color/white" />
 
+    <Button
+        android:id="@+id/button_v2ex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:text="V2EX"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/text_live_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+
     <ImageView
         android:id="@+id/image_display"
         android:layout_width="wrap_content"

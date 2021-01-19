@@ -44,6 +44,7 @@
         <activity android:name=".VideoPlayerActivity" />
         <activity android:name=".media.camera.CaptureActivity" />
         <activity android:name=".LithoActivity" />
+        <activity android:name=".broom.activity.V2EXActivity" />
     </application>
 
 </manifest>
