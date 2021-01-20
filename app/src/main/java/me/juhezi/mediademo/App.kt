@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.work.Configuration
 import com.facebook.soloader.SoLoader
+import javax.net.ssl.HttpsURLConnection
 
 class App : Application(), Configuration.Provider {
     override fun getWorkManagerConfiguration() =

@@ -8,6 +8,7 @@ public interface V2EXApiService {
     String BASE_URL = "https://www.v2ex.com";
 
     @GET("api/topics/hot.json")
-    Observable<Object> requestHotTopic();
+    Observable<String> requestHotTopic();
 
 }
+
