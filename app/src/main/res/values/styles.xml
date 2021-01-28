@@ -8,4 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.MyApp" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+
+        <!-- Optional, if drawing behind the status bar too -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
 </resources>

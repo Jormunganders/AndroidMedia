@@ -6,11 +6,13 @@ import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.ParcelFileDescriptor
 import android.provider.OpenableColumns
 import android.text.Html
 import android.util.Log
+import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -26,6 +28,7 @@ import java.io.IOException
 class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
     private lateinit var mNumberLiveDate: MutableLiveData<Int>
+    private var mIsLightStatusBar = false
 
     @ExperimentalStdlibApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,7 +78,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         lifecycle.addObserver(DemoObserver())
         mNumberLiveDate.observe(this,
             Observer<Int> {
-                logi(TAG,"LiveData Change: $it")
+                logi(TAG, "LiveData Change: $it")
                 text_live_data.text = Html.fromHtml("S<font color='#FF5000'>$it</font>")
             })
         button_v2ex.setOnLongClickListener {
@@ -83,6 +86,20 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 updateNumber()
             }
             true
+        }
+        button_status_bar.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                // 启动浅色状态栏
+                button_v2ex.windowInsetsController?.setSystemBarsAppearance(
+                    if (mIsLightStatusBar) {
+                        WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+                    } else {
+                        0
+                    }, // value
+                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS // mask
+                )
+                mIsLightStatusBar = !mIsLightStatusBar
+            }
         }
     }
 

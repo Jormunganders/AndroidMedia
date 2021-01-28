@@ -183,27 +183,19 @@ class VideoPlayerActivity : AppCompatActivity(), TextureView.SurfaceTextureListe
     }
 
 
-    override fun onSurfaceTextureSizeChanged(
-        surface: SurfaceTexture?, width: Int, height: Int
-    ) {
+    override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {
     }
 
-    override fun onSurfaceTextureUpdated(
-        surface: SurfaceTexture?
-    ) {
+    override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {
     }
 
-    override fun onSurfaceTextureDestroyed(
-        surface: SurfaceTexture?
-    ): Boolean {
+    override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
         surfaceTextureReady = false
         video_play_button.isEnabled = surfaceTextureReady
         return true
     }
 
-    override fun onSurfaceTextureAvailable(
-        surface: SurfaceTexture?, width: Int, height: Int
-    ) {
+    override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
         surfaceTextureReady = true
         video_play_button.isEnabled = surfaceTextureReady
     }

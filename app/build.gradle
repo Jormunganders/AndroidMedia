@@ -11,15 +11,15 @@ apply plugin: 'kotlin-kapt'
 
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
     defaultConfig {
         if (isApp()) {
             applicationId "me.juhezi.mediademo"
         }
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -95,6 +95,8 @@ dependencies {
     implementation "androidx.camera:camera-view:1.0.0-alpha14"
     implementation "androidx.asynclayoutinflater:asynclayoutinflater:1.0.0"
     implementation 'com.google.android.material:material:1.2.1'
+
+    implementation Libs.glide
 
     // AutoValue
     implementation Libs.autoValue

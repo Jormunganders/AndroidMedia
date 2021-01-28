@@ -1,10 +1,12 @@
 object Versions {
     const val autoValue = "1.6.5"
     const val rxlifecycle = "4.0.2"
+    const val glide = "4.11.0"
 }
 
 object Libs {
     const val autoValue = "com.google.auto.value:auto-value-annotations:${Versions.autoValue}"
+    const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
 
     val retrofitLibs = arrayListOf(
         "com.squareup.retrofit2:retrofit:2.9.0",
