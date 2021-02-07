@@ -1,16 +1,13 @@
 package me.juhezi.mediademo.broom.activity
 
-import android.graphics.Insets
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.view.animation.LinearInterpolator
 import android.widget.ImageView
 import androidx.core.view.ViewCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.google.android.material.animation.AnimationUtils.lerp
 import kotlinx.android.synthetic.main.layout_activity_v2ex.*
 import kotlinx.android.synthetic.main.layout_activity_v2ex.view.*
 import me.juhezi.mediademo.R
