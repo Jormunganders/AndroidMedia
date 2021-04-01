@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SlowCutDynamicStyle">
+        <attr name="primary" format="color" />
+        <attr name="primary_dark" format="color" />
+        <attr name="primary_light" format="color" />
+        <attr name="accent" format="color" />
+        <attr name="primary_text" format="color" />
+        <attr name="secondary_text" format="color" />
+
+    </declare-styleable>
+</resources>

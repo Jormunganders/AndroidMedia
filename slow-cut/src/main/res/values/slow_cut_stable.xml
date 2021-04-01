@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?><!--不可变的-->
+<resources>
+
+    <style name="SlowCut.Theme.Stable" parent="SlowCut.Theme">
+<!--        todo-->
+    </style>
+</resources>

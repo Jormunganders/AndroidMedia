@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="page_start_margin">19dp</dimen>
+    <dimen name="page_end_margin">19dp</dimen>
+    <dimen name="corner_shadow_view_shadow_padding">19dp</dimen>
+    <dimen name="corner_shadow_view_shadow_radius">10dp</dimen>
+    <dimen name="page_toolbar_margin">16dp</dimen>
+
+</resources>

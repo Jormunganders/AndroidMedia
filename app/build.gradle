@@ -53,6 +53,8 @@ android {
 
 dependencies {
 
+    implementation project(":slow-cut-base")
+
     def work_version = "2.3.4"
     def camerax_version = "1.0.0-beta07"
 

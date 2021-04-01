@@ -1,4 +1,4 @@
-package me.juhezi.mediademo.widgets
+package me.juhezi.slow_cut_base.widget.corner_shadow
 
 import android.content.Context
 import android.graphics.Canvas
