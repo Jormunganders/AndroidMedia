@@ -14,9 +14,10 @@ import android.text.Html
 import android.util.Log
 import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.kotlin.zipWith
 import kotlinx.android.synthetic.main.demo_activity_main.*
 import kotlinx.coroutines.*
 import me.juhezi.mediademo.broom.activity.V2EXActivity
@@ -101,6 +102,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 mIsLightStatusBar = !mIsLightStatusBar
             }
         }
+        button_rxjava_demo.setOnClickListener {
+            testRxJava()
+        }
     }
 
     private suspend fun updateNumber() = withContext(Dispatchers.IO) {
@@ -162,7 +166,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         val parcelFileDescriptor: ParcelFileDescriptor =
             contentResolver.openFileDescriptor(uri, "r")!!
         val fileDescriptor: FileDescriptor = parcelFileDescriptor.fileDescriptor
-        logi(Companion.TAG, "fd is $fileDescriptor")
+        logi(TAG, "fd is $fileDescriptor")
         val image: Bitmap? = BitmapFactory.decodeFileDescriptor(fileDescriptor)
         parcelFileDescriptor.close()
         return@withContext image
@@ -177,7 +181,28 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         const val TAG = "Juhezi"
     }
 
+    fun testRxJava() {
+        val originObservable: Observable<String> = Observable.create<String> {
+            logi(TAG,"执行！")
+            it.onNext("Nice")
+        }
 
+        val checkObservable = Observable.create<Boolean> {
+            if (System.currentTimeMillis() % 2L == 0L) {
+                it.onNext(true)
+            } else {
+                it.onError(Exception("中断"))
+            }
+        }
+        checkObservable.flatMap { originObservable }
+            .subscribe(
+                {
+                    logi(TAG,"执行结果：$it")
+                },{
+                    it.printStackTrace()
+                }
+            )
+    }
 }
 
 /*

@@ -68,19 +68,29 @@
             android:id="@+id/button_async_inflate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:backgroundTint="@android:color/holo_red_light"
             android:text="异步加载布局"
-            android:layout_weight="1"
             android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/button_status_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:backgroundTint="@android:color/holo_orange_light"
             android:text="浅色|深色状态栏"
-            android:layout_weight="1"
+            android:singleLine="true"
             android:textColor="@android:color/white" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/holo_green_light"
+            android:text="RxJava"
+            android:textColor="@android:color/white"
+            android:id="@+id/button_rxjava_demo"/>
 
     </LinearLayout>
 

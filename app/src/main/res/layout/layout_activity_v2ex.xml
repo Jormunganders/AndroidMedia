@@ -15,14 +15,86 @@
         android:id="@+id/edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:drawable/edit_text"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/show_hide_keyboard"
+    <LinearLayout
+        android:id="@+id/button_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="显示|隐藏键盘"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text" />
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text">
+
+        <Button
+            android:id="@+id/show_hide_keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="显示|隐藏键盘" />
+
+        <Button
+            android:id="@+id/start_anim"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="开始动画" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/house"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_house"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_container" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/house">
+
+        <View
+            android:id="@+id/view_0"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/holo_green_light"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view_1"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="@android:color/holo_red_dark"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/view_0" />
+
+        <View
+            android:id="@+id/view_2"
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:background="@android:color/holo_orange_light"
+            app:layout_constraintTop_toBottomOf="@id/view_1" />
+
+        <View
+            android:id="@+id/view_3"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@android:color/holo_blue_light"
+            app:layout_constraintTop_toBottomOf="@id/view_2" />
+
+        <View
+            android:id="@+id/view_4"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@android:color/holo_purple"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/view_3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/background_switch"
