@@ -1,6 +1,4 @@
-package me.juhezi.slowcut
-
-import android.util.Log
+package me.juhezi.mediademo.ks
 
 object ImageGridLayoutUtils {
 
