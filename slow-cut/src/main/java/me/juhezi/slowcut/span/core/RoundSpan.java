@@ -14,7 +14,7 @@ import me.juhezi.slow_cut_base.util.CommonUtil;
 import me.juhezi.slowcut.R;
 
 // PressedSpanHelper
-public class RoundTagSpan extends ReplacementSpan implements PressedSpan {
+public class RoundSpan extends ReplacementSpan implements PressedSpan {
 
     private static final String TAG = "RoundTagSpan";
 
@@ -30,10 +30,12 @@ public class RoundTagSpan extends ReplacementSpan implements PressedSpan {
     private boolean mIsPressed;
     private final int mSpace;
     private final RectF mRectF;
-    
+
     protected CharSequence mOverrideText;
 
-    public RoundTagSpan(int textColor, int pressedColor) {
+    private boolean mHasSetupOverrideContent = false;
+
+    public RoundSpan(int textColor, int pressedColor) {
         super();
         mTextColor = textColor;
         mPressedColor = pressedColor;
@@ -73,7 +75,7 @@ public class RoundTagSpan extends ReplacementSpan implements PressedSpan {
         Paint.FontMetrics fontMetrics = paint.getFontMetrics();
         paint.setColor(this.mBgColor);
         x += mSpace;
-        mRectF.set(x, 0, right, y + fontMetrics.bottom);
+        mRectF.set(x, y + fontMetrics.top, right, y + fontMetrics.bottom);
         paint.setStyle(Paint.Style.FILL);
         // 绘制背景
         canvas.drawRoundRect(mRectF, mCorner, mCorner, paint);
@@ -101,6 +103,10 @@ public class RoundTagSpan extends ReplacementSpan implements PressedSpan {
     }
 
     private CharSequence getRealContent(CharSequence source, int start, int end) {
+        if (!mHasSetupOverrideContent) {
+            onSetupOverrideContent();
+            mHasSetupOverrideContent = true;
+        }
         CharSequence realContent;
         if (mOverrideText == null) {
             realContent = source.subSequence(start, end);
@@ -120,4 +126,8 @@ public class RoundTagSpan extends ReplacementSpan implements PressedSpan {
         }
         return source.charAt(where) == ' ' || source.charAt(where) == '\u0020';
     }
+
+    protected void onSetupOverrideContent() {
+    }
+
 }

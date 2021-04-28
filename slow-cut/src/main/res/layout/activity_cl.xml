@@ -22,11 +22,31 @@
 
     <me.juhezi.slowcut.widget.CornerShadowConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/dimen_200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
+        <EditText
+            android:id="@+id/command_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_24dp"
+            android:layout_marginTop="@dimen/dimen_32dp"
+            android:layout_marginBottom="@dimen/dimen_32dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            android:background="@null"
+            android:hint="@string/command_line_hint"
+            android:imeOptions="actionDone"
+            android:includeFontPadding="false"
+            android:inputType="textMultiLine"
+            android:textColor="@color/s_222222"
+            android:textColorHint="@color/s_9C9C9C"
+            android:textCursorDrawable="@drawable/bg_edittext_cursor"
+            android:textSize="@dimen/dimen_14sp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="一看到你，我就想跑！一看到你，\n我就想跑！一看到你，我就想跑！一看到你，我就想跑！" />
 
     </me.juhezi.slowcut.widget.CornerShadowConstraintLayout>
 

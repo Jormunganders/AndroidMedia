@@ -18,4 +18,9 @@
     <color name="divider">#BDBDBD</color>
 
     <color name="s_6200EF_10">#1A6200EE</color>
+    <color name="s_222222">#222222</color>
+    <color name="s_9C9C9C">#9c9c9c</color>
+    <color name="s_FF5000">#FF5000</color>
+    <color name="s_F8F8F8">#F8F8F8</color>
+    <color name="s_EAEAEA">#EAEAEA</color>
 </resources>
