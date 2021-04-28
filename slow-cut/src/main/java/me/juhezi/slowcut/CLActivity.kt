@@ -5,7 +5,11 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ImageSpan
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_cl.*
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import me.juhezi.slow_cut_base.core.SlowCutActivity
 import me.juhezi.slowcut.span.core.RoundSpan
 import me.juhezi.slowcut.span.model.EmptySpan
@@ -18,7 +22,14 @@ class CLActivity : SlowCutActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cl)
+        async {
+            delay(1000)
+            updateContent()
+        }
+        Snackbar.make(command_edittext, "Hello World", BaseTransientBottomBar.LENGTH_SHORT).show()
+    }
 
+    private fun updateContent() {
         //--- demo ---
         val spannableString = SpannableString("########大家好大家好大家好大家好大家好大家好大家好大家好")
         val bitmap = BitmapFactory.decodeResource(resources, R.drawable.ic_span_demo)
@@ -54,4 +65,5 @@ class CLActivity : SlowCutActivity() {
         )
         command_edittext.setText(spannableString)
     }
+
 }
