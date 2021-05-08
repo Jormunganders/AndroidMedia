@@ -18,7 +18,7 @@ class SaveImageToGalleryWorker(appContext: Context, workerParameters: WorkerPara
     Worker(appContext, workerParameters) {
 
     companion object {
-        private const val TAG = "SaveImageToGalleryWorker"
+        private const val TAG = "SaveImageToGallery"
         private const val TITLE = "Filtered Image"
         private val DATE_FORMATTER =
             SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss z", Locale.getDefault())
