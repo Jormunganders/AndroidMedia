@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "663177201602",
+    "project_id": "slowcut-793db",
+    "storage_bucket": "slowcut-793db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663177201602:android:c1d45a388b828a6556b85b",
+        "android_client_info": {
+          "package_name": "me.juhezi.slowcut"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663177201602-ttfnda3gg49vido7qnl27mp6h2va3bl3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-4DIoFhSB8LobIROFCR31Blug8BAXsqA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663177201602-ttfnda3gg49vido7qnl27mp6h2va3bl3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
