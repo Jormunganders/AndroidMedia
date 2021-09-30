@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -70,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@android:color/holo_red_light"
+            android:singleLine="true"
             android:text="异步加载布局"
             android:textColor="@android:color/white" />
 
@@ -79,19 +81,28 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@android:color/holo_orange_light"
-            android:text="浅色|深色状态栏"
             android:singleLine="true"
+            android:text="浅色|深色状态栏"
             android:textColor="@android:color/white" />
 
         <Button
+            android:id="@+id/button_rxjava_demo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@android:color/holo_green_light"
             android:text="RxJava"
-            android:textColor="@android:color/white"
-            android:id="@+id/button_rxjava_demo"/>
+            android:textColor="@android:color/white" />
 
+        <Button
+            android:id="@+id/button_hw_window_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorAccent"
+            android:singleLine="true"
+            android:text="华为小窗测试"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
     <Button

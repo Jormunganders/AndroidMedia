@@ -5,6 +5,7 @@ import android.content.Intent
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -12,8 +13,11 @@ import android.os.ParcelFileDescriptor
 import android.provider.OpenableColumns
 import android.text.Html
 import android.util.Log
+import android.view.ViewGroup
 import android.view.WindowInsetsController
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import io.reactivex.rxjava3.core.Observable
@@ -105,6 +109,16 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         button_rxjava_demo.setOnClickListener {
             testRxJava()
         }
+        button_hw_window_test.setOnClickListener {
+            with(window.decorView as ViewGroup) {
+                val root = get(0)
+                removeView(root)
+                val wrapper = FrameLayout(context)
+                wrapper.addView(root)
+                addView(wrapper)
+            }
+
+        }
     }
 
     private suspend fun updateNumber() = withContext(Dispatchers.IO) {
@@ -127,7 +141,14 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 logi(Companion.TAG, "Uri $it")
                 dumpImageMetaData(it)
                 launch {
-                    image_display.setImageBitmap(getBitmapFromUri(it))
+                    val bitmap = getBitmapFromUri(it)
+                    image_display.setImageBitmap(bitmap)
+                    val bitmapDrawable = BitmapDrawable(bitmap)
+                    root.background = bitmapDrawable
+                    delay(3000)
+                    bitmap?.recycle()
+                    Log.i("Juhezi", "onActivityResult: 图片回收 ${bitmap?.isRecycled}")
+                    root.invalidate()
                 }
                 logw(
                     Companion.TAG,
@@ -183,7 +204,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
     fun testRxJava() {
         val originObservable: Observable<String> = Observable.create<String> {
-            logi(TAG,"执行！")
+            logi(TAG, "执行！")
             it.onNext("Nice")
         }
 
@@ -197,8 +218,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         checkObservable.flatMap { originObservable }
             .subscribe(
                 {
-                    logi(TAG,"执行结果：$it")
-                },{
+                    logi(TAG, "执行结果：$it")
+                }, {
                     it.printStackTrace()
                 }
             )
