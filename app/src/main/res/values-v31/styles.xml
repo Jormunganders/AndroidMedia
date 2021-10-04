@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="JetpackSplashTheme" parent="JetpackSplashTheme.Base">
+        <item name="android:windowSplashScreenIconBackgroundColor">@android:color/holo_blue_bright
+        </item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/ic_fans_group</item>
+    </style>
+</resources>

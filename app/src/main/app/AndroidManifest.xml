@@ -16,7 +16,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/JetpackSplashTheme">
+        <activity
+            android:name=".letme.LetmeActivity"
+            android:exported="true" />
 
         <provider
             android:name=".HelloSliceProvider"
@@ -31,11 +34,12 @@
                     android:host="juhezi.com"
                     android:pathPrefix="/hello"
                     android:scheme="http" />
-
             </intent-filter>
         </provider>
 
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

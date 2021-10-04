@@ -7,14 +7,12 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
-import androidx.camera.extensions.BokehImageCaptureExtender
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.demo_activity_capture.*
 import me.juhezi.mediademo.R
 import me.juhezi.mediademo.logd
-import me.juhezi.mediademo.logi
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -88,16 +86,16 @@ class CaptureActivity : AppCompatActivity() {
             val preview = Preview.Builder()
                 .build()
                 .also {
-                    it.setSurfaceProvider(viewFinder.createSurfaceProvider())
+                    it.setSurfaceProvider(viewFinder.surfaceProvider)
                 }
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
             val builder = ImageCapture.Builder()
             imageCapture = builder.build()
-            val bokehImageCapture = BokehImageCaptureExtender.create(builder)
+            /*val bokehImageCapture = BokehImageCaptureExtender.create(builder)
             if (bokehImageCapture.isExtensionAvailable(cameraSelector)) {
                 logi(TAG, "BokehImageCaptureExtender 可用")
                 bokehImageCapture.enableExtension(cameraSelector)
-            }
+            }*/
             val imageAnalyzer = ImageAnalysis.Builder()
                 .build()
                 .also {

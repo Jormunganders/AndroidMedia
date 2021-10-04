@@ -15,4 +15,20 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="JetpackSplashTheme" parent="JetpackSplashTheme.Base">
+    </style>
+
+    <style name="JetpackSplashTheme.Base" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/avd_anim</item>
+        <item name="windowSplashScreenAnimationDuration">10</item>
+        <item name="windowSplashScreenBackground">@android:color/holo_blue_light</item>
+        <item name="postSplashScreenTheme">@style/SplashActivityTheme</item>
+    </style>
+
+    <style name="SplashActivityTheme" parent="AppTheme.MyApp">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
 </resources>

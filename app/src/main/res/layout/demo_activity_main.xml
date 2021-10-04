@@ -3,7 +3,8 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <me.juhezi.mediademo.widgets.CornerShadowLinearLayout
         android:layout_width="match_parent"
@@ -113,6 +114,14 @@
         android:text="V2EX"
         android:textColor="@android:color/white" />
 
+    <Button
+        android:id="@+id/letme_page_entrance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/holo_purple"
+        android:text="马里亚纳海沟"
+        android:textColor="@android:color/white" />
+
     <TextView
         android:id="@+id/text_live_data"
         android:layout_width="match_parent"
@@ -124,6 +133,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        tools:src="@color/colorAccent"
+        tools:layout_height="100dp"
+        tools:layout_width="100dp"/>
 
 </LinearLayout>

@@ -44,7 +44,7 @@ class V2EXActivity : BaseActivity() {
                             runningAnimations: MutableList<WindowInsetsAnimation>
                         ): WindowInsets {
                             val mTargetImeVisible = mCurrentImeVisible
-                            val fraction = runningAnimations.maxBy { it.fraction }?.fraction ?: 1F
+                            val fraction = runningAnimations.maxByOrNull { it.fraction }?.fraction ?: 1F
 //                            logi("Juhezix", "fraction: $fraction")  // 从  0  ->  1
                             val percent = if (mTargetImeVisible) {    // 键盘显示的百分比
                                 fraction

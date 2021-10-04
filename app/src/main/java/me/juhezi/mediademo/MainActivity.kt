@@ -17,15 +17,17 @@ import android.view.ViewGroup
 import android.view.WindowInsetsController
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.get
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.kotlin.zipWith
 import kotlinx.android.synthetic.main.demo_activity_main.*
 import kotlinx.coroutines.*
 import me.juhezi.mediademo.broom.activity.V2EXActivity
 import me.juhezi.mediademo.kuaishou.AsyncCacheLayoutInflater
+import me.juhezi.mediademo.letme.LetmeActivity
 import me.juhezi.mediademo.media.camera.CaptureActivity
 import java.io.FileDescriptor
 import java.io.IOException
@@ -38,6 +40,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     @ExperimentalStdlibApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         setContentView(R.layout.demo_activity_main)
         mNumberLiveDate = MutableLiveData()
         button_video_player.setOnClickListener {
@@ -118,6 +121,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 addView(wrapper)
             }
 
+        }
+        letme_page_entrance.setOnClickListener {
+            startActivity(Intent(this, LetmeActivity::class.java))
         }
     }
 
