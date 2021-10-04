@@ -1,4 +1,4 @@
-include ':app'
+include ':demo'
 include ':slow-cut'
 rootProject.name = 'MediaDemo'
 include ':slow-cut-base'
