@@ -1,4 +1,4 @@
-package me.juhezi.slowcut
+package me.juhezi.slowcut.ffmpegcli
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -11,9 +11,10 @@ import kotlinx.android.synthetic.main.activity_cl.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import me.juhezi.slow_cut_base.core.SlowCutActivity
-import me.juhezi.slowcut.span.core.RoundSpan
-import me.juhezi.slowcut.span.model.EmptySpan
-import me.juhezi.slowcut.span.model.FileSpan
+import me.juhezi.slowcut.R
+import me.juhezi.slowcut.ffmpegcli.span.core.RoundSpan
+import me.juhezi.slowcut.ffmpegcli.span.model.EmptySpan
+import me.juhezi.slowcut.ffmpegcli.span.model.FileSpan
 
 /**
  * 命令行页面

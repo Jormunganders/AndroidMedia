@@ -2,6 +2,7 @@ object Versions {
     const val autoValue = "1.6.5"
     const val rxlifecycle = "4.0.2"
     const val glide = "4.11.0"
+    const val room = "2.3.0"
 }
 
 object Libs {
@@ -28,6 +29,16 @@ object Libs {
         "com.trello.rxlifecycle4:rxlifecycle-kotlin:${Versions.rxlifecycle}"
     )
 
+    /**
+     * For SlowCut Module
+     */
+    val roomLibs = arrayListOf(
+        "androidx.room:room-runtime:${Versions.room}",
+        "androidx.room:room-rxjava3:${Versions.room}",
+        "androidx.room:room-guava:${Versions.room}",
+//        "androidx.room:room-paging:2.4.0-alpha05"
+    )
+
 }
 
 /**
@@ -35,4 +46,5 @@ object Libs {
  */
 object AnnotationProcessors {
     const val autoValue = "com.google.auto.value:auto-value:${Versions.autoValue}"
+    const val room = "androidx.room:room-compiler:${Versions.room}"
 }

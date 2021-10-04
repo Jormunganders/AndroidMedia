@@ -1,4 +1,4 @@
-package me.juhezi.slowcut.widget
+package me.juhezi.slowcut.ffmpegcli.widget
 
 import android.content.Context
 import android.graphics.Canvas

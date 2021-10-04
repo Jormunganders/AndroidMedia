@@ -1,9 +1,7 @@
-package me.juhezi.slowcut.span.model
+package me.juhezi.slowcut.ffmpegcli.span.model
 
-import android.text.style.URLSpan
-import android.util.Log
 import me.juhezi.slowcut.R
-import me.juhezi.slowcut.span.core.RoundSpan
+import me.juhezi.slowcut.ffmpegcli.span.core.RoundSpan
 
 /**
  * @param originContent 原本的文本，在执行命令的时候会把这个字符串拼接到命令行中。

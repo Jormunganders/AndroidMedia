@@ -1,7 +1,5 @@
-package me.juhezi.slowcut.span.model
+package me.juhezi.slowcut.ffmpegcli.span.model
 
-import android.util.Log
-import android.view.View
 import me.juhezi.slow_cut_base.util.CommonUtil
 import me.juhezi.slowcut.R
 import java.io.File

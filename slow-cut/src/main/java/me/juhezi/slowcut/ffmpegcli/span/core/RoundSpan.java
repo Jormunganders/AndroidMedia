@@ -1,4 +1,4 @@
-package me.juhezi.slowcut.span.core;
+package me.juhezi.slowcut.ffmpegcli.span.core;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -6,8 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.drawable.Drawable;
-import android.text.TextPaint;
 import android.text.style.ReplacementSpan;
 import android.view.View;
 

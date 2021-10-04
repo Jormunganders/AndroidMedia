@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CLActivity"
+    tools:context=".ffmpegcli.CLActivity"
     tools:ignore="MissingConstraints">
 
     <Toolbar
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="UnusedAttribute" />
 
-    <me.juhezi.slowcut.widget.CornerShadowConstraintLayout
+    <me.juhezi.slowcut.ffmpegcli.widget.CornerShadowConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="@dimen/dimen_200dp"
@@ -48,6 +48,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="一看到你，我就想跑！一看到你，\n我就想跑！一看到你，我就想跑！一看到你，我就想跑！" />
 
-    </me.juhezi.slowcut.widget.CornerShadowConstraintLayout>
+    </me.juhezi.slowcut.ffmpegcli.widget.CornerShadowConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

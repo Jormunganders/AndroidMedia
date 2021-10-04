@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/SlowCut.Theme.Dynamic">
-        <activity android:name=".CLActivity">
+        <activity android:name=".ffmpegcli.CLActivity" />
+        <activity android:name=".life.MomentListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

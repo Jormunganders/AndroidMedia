@@ -9,7 +9,7 @@ class GlobalConfig {
     companion object {
 
         @SuppressLint("StaticFieldLeak")
-        private var CONTEXT: Context? = null
+        private lateinit var CONTEXT: Context
 
         @JvmStatic
         fun setApplicationContext(context: Context) {

@@ -1,4 +1,4 @@
-package me.juhezi.slowcut.span
+package me.juhezi.slowcut.ffmpegcli.span
 
 object SpanUtil {
 

@@ -1,4 +1,4 @@
-package me.juhezi.slowcut.span.core;
+package me.juhezi.slowcut.ffmpegcli.span.core;
 
 import android.view.View;
 

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CLActivity"
-    android:clipChildren="false"
+    tools:context=".life.MomentListActivity"
     tools:ignore="MissingConstraints">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
