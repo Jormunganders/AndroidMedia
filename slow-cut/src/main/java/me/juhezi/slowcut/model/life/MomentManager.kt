@@ -1,7 +1,6 @@
 package me.juhezi.slowcut.model.life
 
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.schedulers.Schedulers

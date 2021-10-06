@@ -1,4 +1,5 @@
+rootProject.name = 'MediaDemo'
 include ':demo'
 include ':slow-cut'
-rootProject.name = 'MediaDemo'
 include ':slow-cut-base'
+include ':demo-pagging'

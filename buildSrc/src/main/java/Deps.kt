@@ -3,6 +3,7 @@ object Versions {
     const val rxlifecycle = "4.0.2"
     const val glide = "4.11.0"
     const val room = "2.3.0"
+    const val paging = "3.0.1"
 }
 
 object Libs {
@@ -37,6 +38,12 @@ object Libs {
         "androidx.room:room-rxjava3:${Versions.room}",
         "androidx.room:room-guava:${Versions.room}",
 //        "androidx.room:room-paging:2.4.0-alpha05"
+    )
+
+    val pagingLibs = arrayListOf(
+        "androidx.paging:paging-runtime:${Versions.paging}",
+        "androidx.paging:paging-rxjava3:${Versions.paging}",
+        "androidx.paging:paging-guava:${Versions.paging}",
     )
 
 }

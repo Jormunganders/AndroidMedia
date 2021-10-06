@@ -18,6 +18,10 @@
         <entry key="app/src/main/res/layout/activity_letme.xml" value="0.37407407407407406" />
         <entry key="app/src/main/res/layout/demo_activity_capture.xml" value="0.42962962962962964" />
         <entry key="app/src/main/res/layout/demo_activity_main.xml" value="0.42962962962962964" />
+        <entry key="demo-pagging/src/main/res/layout/activity_search_repositories.xml" value="0.22644927536231885" />
+        <entry key="demo-pagging/src/main/res/layout/repo_view_item.xml" value="0.22644927536231885" />
+        <entry key="demo-pagging/src/main/res/layout/repos_load_state_footer_view_item.xml" value="0.22644927536231885" />
+        <entry key="demo-pagging/src/main/res/layout/separator_view_item.xml" value="0.22644927536231885" />
         <entry key="slow-cut/src/main/res/layout/activity_cl.xml" value="0.13824419778002017" />
         <entry key="slow-cut/src/main/res/layout/activity_clactivity.xml" value="0.21203703703703702" />
       </map>

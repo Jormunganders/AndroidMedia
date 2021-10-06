@@ -45,4 +45,5 @@ dependencies {
     Libs.rxLibs.forEach { api(it) }
     Libs.lifeCycleLibs.forEach { api(it) }
     Libs.roomLibs.forEach { api(it) }
+    Libs.pagingLibs.forEach { api(it) }
 }
