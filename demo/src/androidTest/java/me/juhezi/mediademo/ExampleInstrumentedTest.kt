@@ -1,5 +1,6 @@
 package me.juhezi.mediademo
 
+import android.speech.tts.TextToSpeech
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 
@@ -21,4 +22,16 @@ class ExampleInstrumentedTest {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("me.juhezi.mediademo", appContext.packageName)
     }
+
+    @Test
+    fun testTTS() {
+
+        val tts = TextToSpeech(
+            InstrumentationRegistry.getInstrumentation().targetContext
+        ) {
+
+        }
+        tts.speak("Coroutine", TextToSpeech.QUEUE_FLUSH, null)
+    }
+
 }
