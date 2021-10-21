@@ -23,4 +23,13 @@
     <color name="s_FF5000">#FF5000</color>
     <color name="s_F8F8F8">#F8F8F8</color>
     <color name="s_EAEAEA">#EAEAEA</color>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="titleColor">#1F75FE</color>
+    <color name="titleColorAlpha">#551F75FE</color>
+    <color name="greyAlpha">#55999999</color>
+    <color name="separatorBackground">#AAAAAA</color>
+    <color name="separatorText">#FFFFFF</color>
 </resources>

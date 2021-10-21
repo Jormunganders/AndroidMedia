@@ -10,4 +10,11 @@
     <string name="span_file_display_text_exist">存在</string>
     <string name="span_file_display_text_not_exist">不存在</string>
     <string name="colon">:</string>
+
+    <string name="loading">Loading</string>
+    <string name="language">Language: %s</string>
+    <string name="search_hint">GitHub Repository</string>
+    <string name="no_results">No results 😓</string>
+    <string name="unknown">\?</string>
+    <string name="retry">Retry</string>
 </resources>

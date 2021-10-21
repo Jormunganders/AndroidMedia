@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="me.juhezi.slowcut">
 
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="me.juhezi.slow_cut_base.core.SlowCutBaseApplication"
         android:allowBackup="true"
@@ -11,13 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/SlowCut.Theme.Dynamic">
         <activity android:name=".ffmpegcli.CLActivity" />
-        <activity android:name=".life.MomentListActivity">
+        <activity
+            android:name=".gala.GalaActivity"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".life.MomentListActivity" />
     </application>
 
 </manifest>

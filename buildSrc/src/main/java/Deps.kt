@@ -14,7 +14,8 @@ object Libs {
         "com.squareup.retrofit2:retrofit:2.9.0",
         "com.squareup.retrofit2:adapter-rxjava3:2.9.0",
         "com.squareup.retrofit2:converter-gson:2.6.2",
-        "com.google.code.gson:gson:2.8.6"
+        "com.google.code.gson:gson:2.8.6",
+        "com.squareup.okhttp3:logging-interceptor:4.9.0"
     )
 
     val rxLibs = arrayListOf(

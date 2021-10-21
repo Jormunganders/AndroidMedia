@@ -22,22 +22,6 @@
             android:exported="true"
             android:theme="@style/AppTheme.MyApp" />
 
-        <provider
-            android:name=".HelloSliceProvider"
-            android:authorities="me.juhezi.mediademo"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.app.slice.category.SLICE" />
-
-                <data
-                    android:host="juhezi.com"
-                    android:pathPrefix="/hello"
-                    android:scheme="http" />
-            </intent-filter>
-        </provider>
-
         <activity
             android:name=".MainActivity"
             android:exported="true">

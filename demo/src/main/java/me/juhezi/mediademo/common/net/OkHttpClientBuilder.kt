@@ -30,7 +30,7 @@ object OkHttpClientBuilder {
             })
             val sslContext = SSLContext.getInstance("TLS")
             sslContext.init(null, trustAllCerts, SecureRandom())
-            this.sslSocketFactory(sslContext.socketFactory)
+//            this.sslSocketFactory(sslContext.socketFactory)
         }
     }
 

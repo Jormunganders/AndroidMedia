@@ -18,13 +18,22 @@
         <entry key="app/src/main/res/layout/activity_letme.xml" value="0.37407407407407406" />
         <entry key="app/src/main/res/layout/demo_activity_capture.xml" value="0.42962962962962964" />
         <entry key="app/src/main/res/layout/demo_activity_main.xml" value="0.42962962962962964" />
+        <entry key="demo-pagging/src/main/res/drawable/ic_eye.xml" value="0.1635" />
         <entry key="demo-pagging/src/main/res/layout/activity_search_repositories.xml" value="0.22644927536231885" />
         <entry key="demo-pagging/src/main/res/layout/repo_view_item.xml" value="0.22644927536231885" />
         <entry key="demo-pagging/src/main/res/layout/repos_load_state_footer_view_item.xml" value="0.22644927536231885" />
         <entry key="demo-pagging/src/main/res/layout/separator_view_item.xml" value="0.22644927536231885" />
         <entry key="demo/src/main/res/layout/activity_letme.xml" value="0.42962962962962964" />
+        <entry key="slow-cut/src/main/res/drawable/bg_edittext_cursor.xml" value="0.1635" />
+        <entry key="slow-cut/src/main/res/drawable/ic_eye.xml" value="0.1635" />
+        <entry key="slow-cut/src/main/res/drawable/ic_git_branch.xml" value="0.1635" />
+        <entry key="slow-cut/src/main/res/drawable/ic_star.xml" value="0.1635" />
         <entry key="slow-cut/src/main/res/layout/activity_cl.xml" value="0.13824419778002017" />
         <entry key="slow-cut/src/main/res/layout/activity_clactivity.xml" value="0.21203703703703702" />
+        <entry key="slow-cut/src/main/res/layout/activity_gala_list.xml" value="0.45" />
+        <entry key="slow-cut/src/main/res/layout/activity_life_list.xml" value="0.45" />
+        <entry key="slow-cut/src/main/res/layout/repo_view_item.xml" value="0.4499771118164064" />
+        <entry key="slow-cut/src/main/res/layout/repos_load_state_footer_view_item.xml" value="0.45" />
       </map>
     </option>
   </component>

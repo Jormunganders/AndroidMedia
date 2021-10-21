@@ -10,16 +10,13 @@ import me.juhezi.slowcut.model.life.db.entry.Moment
 
 object MomentManager {
 
-    private val db by lazy {
-        Room.databaseBuilder(
-            GlobalConfig.getApplicationContext(),
-            SlowCutDatabase::class.java, "moment"
-        ).build()
-    }
-
     @JvmStatic
-    fun getMoments(): Flowable<List<Moment>> = db.momentDao().getAll()
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
+    fun getMoments(): Flowable<List<Moment>> =
+        SlowCutDatabase
+            .getInstance(GlobalConfig.getApplicationContext())
+            .momentDao()
+            .getAll()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 
 }
