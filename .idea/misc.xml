@@ -30,10 +30,12 @@
         <entry key="slow-cut/src/main/res/drawable/ic_star.xml" value="0.1635" />
         <entry key="slow-cut/src/main/res/layout/activity_cl.xml" value="0.13824419778002017" />
         <entry key="slow-cut/src/main/res/layout/activity_clactivity.xml" value="0.21203703703703702" />
+        <entry key="slow-cut/src/main/res/layout/activity_gala.xml" value="0.42962962962962964" />
         <entry key="slow-cut/src/main/res/layout/activity_gala_list.xml" value="0.45" />
         <entry key="slow-cut/src/main/res/layout/activity_life_list.xml" value="0.45" />
         <entry key="slow-cut/src/main/res/layout/repo_view_item.xml" value="0.4499771118164064" />
         <entry key="slow-cut/src/main/res/layout/repos_load_state_footer_view_item.xml" value="0.45" />
+        <entry key="slow-cut/src/main/res/layout/separator_view_item.xml" value="0.45" />
       </map>
     </option>
   </component>

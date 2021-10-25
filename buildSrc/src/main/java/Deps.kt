@@ -4,6 +4,7 @@ object Versions {
     const val glide = "4.11.0"
     const val room = "2.3.0"
     const val paging = "3.0.1"
+    const val arrow = "1.0.0"
 }
 
 object Libs {
@@ -45,6 +46,10 @@ object Libs {
         "androidx.paging:paging-runtime:${Versions.paging}",
         "androidx.paging:paging-rxjava3:${Versions.paging}",
         "androidx.paging:paging-guava:${Versions.paging}",
+    )
+
+    val arrowLibs = arrayListOf(
+        "io.arrow-kt:arrow-fx-coroutines:${Versions.arrow}"
     )
 
 }

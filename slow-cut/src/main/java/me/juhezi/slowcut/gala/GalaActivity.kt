@@ -3,12 +3,15 @@ package me.juhezi.slowcut.gala
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_gala.*
+import kotlinx.android.synthetic.main.activity_gala.progress_bar
+import kotlinx.android.synthetic.main.repos_load_state_footer_view_item.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import me.juhezi.slow_cut_base.core.SlowCutActivity
@@ -34,26 +37,35 @@ class GalaActivity : SlowCutActivity() {
         })
         recycler_view.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         lifecycleScope.launch {
-            viewModel.getPagingData().collect {
+            viewModel.getPagingData2().collect {
                 repoAdapter.submitData(it)  // 调用这个函数之后， paging3 就开始工作了
             }
         }
-        repoAdapter.addLoadStateListener {
-            when (it.refresh) {
-                is LoadState.NotLoading -> {
-                    progress_bar.visibility = View.INVISIBLE
-                    recycler_view.visibility = View.VISIBLE
+        retry.setOnClickListener {
+            repoAdapter.retry()
+        }
+        launch {
+            repoAdapter.loadStateFlow.collect {
+                val isListEmpty = it.refresh is LoadState.NotLoading && repoAdapter.itemCount == 0
+                empty.isVisible = isListEmpty
+                recycler_view.isVisible = !isListEmpty
+                with(it.source) {
+                    progress_bar.isVisible = refresh is LoadState.Loading
+                    retry.isVisible = refresh is LoadState.Error
+
+                    val errorState = append as? LoadState.Error
+                        ?: prepend as? LoadState.Error
+                        ?: append as? LoadState.Error
+                        ?: it.prepend as? LoadState.Error
+                    errorState?.let {
+                        Toast.makeText(
+                            this@GalaActivity,
+                            "Error: ${it.error}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
-                is LoadState.Loading -> {
-                    progress_bar.visibility = View.VISIBLE
-                    recycler_view.visibility = View.INVISIBLE
-                }
-                is LoadState.Error -> {
-                    val state = it.refresh as LoadState.Error
-                    progress_bar.visibility = View.INVISIBLE
-                    Toast.makeText(this, "Load Error: ${state.error.message}", Toast.LENGTH_SHORT)
-                        .show()
-                }
+
             }
         }
     }
