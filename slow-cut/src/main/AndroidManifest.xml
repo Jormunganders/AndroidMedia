@@ -15,7 +15,7 @@
         android:theme="@style/SlowCut.Theme.Dynamic">
         <activity android:name=".ffmpegcli.CLActivity" />
         <activity
-            android:name=".gala.GalaActivity"
+            android:name=".uzi.UziActivity"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".life.MomentListActivity" />
+        <activity android:name=".gala.GalaActivity" />
     </application>
 
 </manifest>

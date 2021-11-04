@@ -17,4 +17,8 @@
     <string name="no_results">No results 😓</string>
     <string name="unknown">\?</string>
     <string name="retry">Retry</string>
+
+    <!--uzi-->
+    <string name="ok">OK</string>
+    <string name="input_the_world">输入那个单词吧</string>
 </resources>

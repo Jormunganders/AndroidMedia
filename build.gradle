@@ -6,6 +6,7 @@ buildscript {
         google()
         mavenCentral()
         jcenter()
+        maven { url 'https://developer.huawei.com/repo/' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.3'
@@ -21,6 +22,7 @@ allprojects {
         google()
         mavenCentral()
         jcenter()
+        maven { url 'https://developer.huawei.com/repo/' }
     }
 }
 

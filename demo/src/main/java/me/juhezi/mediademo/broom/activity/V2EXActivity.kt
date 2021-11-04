@@ -44,7 +44,8 @@ class V2EXActivity : BaseActivity() {
                             runningAnimations: MutableList<WindowInsetsAnimation>
                         ): WindowInsets {
                             val mTargetImeVisible = mCurrentImeVisible
-                            val fraction = runningAnimations.maxByOrNull { it.fraction }?.fraction ?: 1F
+                            val fraction =
+                                runningAnimations.maxByOrNull { it.fraction }?.fraction ?: 1F
 //                            logi("Juhezix", "fraction: $fraction")  // 从  0  ->  1
                             val percent = if (mTargetImeVisible) {    // 键盘显示的百分比
                                 fraction
@@ -98,15 +99,24 @@ class V2EXActivity : BaseActivity() {
             .skipMemoryCache(true)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .into(background_image)
-        V2EXRetrofit.get()
+
+
+        val hello = V2EXRetrofit.get()
             .requestHotTopic()
-            .compose(bindToLifecycle())
-            .subscribe({
+            .toFuture()
+
+
+        button_hello.setOnClickListener {
+            /*Log.i("Juhezi", "onCreate: Click")
+            hello.subscribe({
                 Log.i("Juhezi", "onCreate: CurrentThread: " + Thread.currentThread().name)
                 Log.i("Juhezi", "onCreate: \n$it")
             }, {
                 it.printStackTrace()
-            })
+            })*/
+            Log.i("Juhezi", "onCreate: \n${hello.get()}")
+        }
+
         background_switch.setOnClickListener {
             isCenterInSide = !isCenterInSide
             background_image.scaleType = if (isCenterInSide) {
