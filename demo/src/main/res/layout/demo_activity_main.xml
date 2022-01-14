@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<me.juhezi.mediademo.DemoLinearlayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:orientation="vertical">
 
     <me.juhezi.slow_cut_base.widget.corner_shadow.CornerShadowLinearLayout
         android:layout_width="match_parent"
@@ -122,6 +122,13 @@
         android:text="马里亚纳海沟"
         android:textColor="@android:color/white" />
 
+    <me.juhezi.mediademo.CNYGradientTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="你好我好大家好"
+        android:textSize="20sp" />
+
     <TextView
         android:id="@+id/text_live_data"
         android:layout_width="match_parent"
@@ -134,8 +141,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        tools:src="@color/colorAccent"
         tools:layout_height="100dp"
-        tools:layout_width="100dp"/>
+        tools:layout_width="100dp"
+        tools:src="@color/colorAccent" />
 
-</LinearLayout>
+</me.juhezi.mediademo.DemoLinearlayout>

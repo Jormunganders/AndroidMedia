@@ -24,6 +24,8 @@
         <entry key="demo-pagging/src/main/res/layout/repos_load_state_footer_view_item.xml" value="0.22644927536231885" />
         <entry key="demo-pagging/src/main/res/layout/separator_view_item.xml" value="0.22644927536231885" />
         <entry key="demo/src/main/res/layout/activity_letme.xml" value="0.42962962962962964" />
+        <entry key="demo/src/main/res/layout/demo_activity_main.xml" value="0.42962962962962964" />
+        <entry key="demo/src/main/res/layout/item_device.xml" value="0.4462962962962963" />
         <entry key="demo/src/main/res/layout/layout_activity_v2ex.xml" value="0.5332996972754793" />
         <entry key="slow-cut/src/main/res/drawable/bg_edittext_cursor.xml" value="0.1635" />
         <entry key="slow-cut/src/main/res/drawable/ic_eye.xml" value="0.1635" />

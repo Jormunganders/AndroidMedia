@@ -9,10 +9,29 @@
 
     <ImageView
         android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:src="@drawable/avd_anim"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/self_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/avd_anim"
+        android:gravity="center"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@id/image"
+        tools:text="大大怪将军" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/devices_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/self_info" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
