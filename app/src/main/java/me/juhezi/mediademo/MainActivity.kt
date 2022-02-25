@@ -17,10 +17,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.kotlin.zipWith
 import kotlinx.android.synthetic.main.demo_activity_main.*
 import kotlinx.coroutines.*
-import me.juhezi.mediademo.broom.activity.V2EXActivity
 import me.juhezi.mediademo.kuaishou.AsyncCacheLayoutInflater
 import me.juhezi.mediademo.media.camera.CaptureActivity
 import java.io.FileDescriptor
@@ -31,7 +29,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     private lateinit var mNumberLiveDate: MutableLiveData<Int>
     private var mIsLightStatusBar = false
 
-    @ExperimentalStdlibApi
+    @OptIn(ExperimentalStdlibApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.demo_activity_main)
@@ -64,7 +62,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 .setCancelable(true)
                 .show()
         }
-        button_v2ex.setOnClickListener { startActivity(Intent(this, V2EXActivity::class.java)) }
+//        button_v2ex.setOnClickListener { startActivity(Intent(this, V2EXActivity::class.java)) }
         AsyncCacheLayoutInflater.createAndCacheViewAsync(
             this,
             R.layout.layout_dialog_test,
@@ -141,10 +139,16 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
         val cursor: Cursor? = contentResolver.query(uri, null, null, null, null, null)
 
-        cursor?.use {
+        cursor?.use { it ->
             if (it.moveToFirst()) {
                 val displayName: String =
-                    it.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                    it.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME).let { num ->
+                        if (num < 0) {
+                            0
+                        } else {
+                            num
+                        }
+                    })
                 Log.i(Companion.TAG, "Display Name: $displayName")
                 val sizeIndex: Int = it.getColumnIndex(OpenableColumns.SIZE)
                 val size: String = if (!it.isNull(sizeIndex)) {
@@ -183,7 +187,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
     fun testRxJava() {
         val originObservable: Observable<String> = Observable.create<String> {
-            logi(TAG,"执行！")
+            logi(TAG, "执行！")
             it.onNext("Nice")
         }
 
@@ -197,8 +201,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         checkObservable.flatMap { originObservable }
             .subscribe(
                 {
-                    logi(TAG,"执行结果：$it")
-                },{
+                    logi(TAG, "执行结果：$it")
+                }, {
                     it.printStackTrace()
                 }
             )
