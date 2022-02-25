@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <solid android:color="@color/s_FF5000" />
+    <corners
+        android:radius="@dimen/dimen_1dp"
+        tools:ignore="CornerRadiusDetectorRef" />
+    <size android:width="@dimen/dimen_2dp" />
+</shape>

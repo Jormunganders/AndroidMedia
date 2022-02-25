@@ -24,7 +24,8 @@ object Libs {
     val lifeCycleLibs = arrayListOf(
         "com.trello.rxlifecycle4:rxlifecycle:${Versions.rxlifecycle}",
         "com.trello.rxlifecycle4:rxlifecycle-android:${Versions.rxlifecycle}",
-        "com.trello.rxlifecycle4:rxlifecycle-components:${Versions.rxlifecycle}"
+        "com.trello.rxlifecycle4:rxlifecycle-components:${Versions.rxlifecycle}",
+        "com.trello.rxlifecycle4:rxlifecycle-kotlin:${Versions.rxlifecycle}"
     )
 
 }

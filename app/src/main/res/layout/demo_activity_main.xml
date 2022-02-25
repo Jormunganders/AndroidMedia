@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <me.juhezi.mediademo.widgets.CornerShadowLinearLayout
+    <me.juhezi.slow_cut_base.widget.corner_shadow.CornerShadowLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -57,7 +57,7 @@
             android:text="选择照片"
             android:textColor="@android:color/white" />
 
-    </me.juhezi.mediademo.widgets.CornerShadowLinearLayout>
+    </me.juhezi.slow_cut_base.widget.corner_shadow.CornerShadowLinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

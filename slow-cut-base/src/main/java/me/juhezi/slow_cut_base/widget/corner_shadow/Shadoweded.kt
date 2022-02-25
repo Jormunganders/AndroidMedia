@@ -1,25 +1,49 @@
-package me.juhezi.mediademo.widgets
+package me.juhezi.slow_cut_base.widget.corner_shadow
 
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.Path
-import android.graphics.PointF
-import android.graphics.RectF
+import android.graphics.*
+import android.view.View
 
-/**
- * ViewGroup 实现圆角带阴影
- */
-class ShadowRoundedHelper(
-    private val backgroundColor: Int,  // 背景颜色
-    private val cornerRadius: Float, // 圆角半径
-    private val shadowColor: Int, // 阴影颜色
-    private val shadowSize: Float, // 阴影宽度
-    private val arrowHeight: Float,  // 箭头高度
-    private val arrowWidth: Float,   // 箭头宽度，箭头所对的那个边长度
-    private val arrowCornerRadius: Float, // 箭头圆角
-    private val arrowPosition: ArrowPosition, // 箭头位置
-    private val callback: Callback
-) {
+enum class ArrowPosition {
+    NONE,   // 无箭头
+    TOP,
+    START,
+    END,
+    BOTTOM
+}
+
+interface ShadowRounded {
+
+    val backgroundColor: Int
+    val cornerRadius: Float
+    val shadowColor: Int
+    val shadowSize: Float
+    val arrowHeight: Float
+    val arrowWidth: Float
+    val arrowCornerRadius: Float
+    val arrowPosition: ArrowPosition
+
+    fun setArrowOffset(offset: Float)
+
+    fun setArrowVisible(visible: Boolean)
+
+    fun drawX(canvas: Canvas)
+
+    fun bindView(view: View)
+
+}
+
+class ShadowRoundedImpl(
+    override val backgroundColor: Int,
+    override val cornerRadius: Float,
+    override val shadowColor: Int,
+    override val shadowSize: Float,
+    override val arrowHeight: Float,
+    override val arrowWidth: Float,
+    override val arrowCornerRadius: Float,
+    override val arrowPosition: ArrowPosition
+) : ShadowRounded {
+
+    private var mView: View? = null
 
     private val shadowPaint = Paint().apply {
         color = backgroundColor
@@ -31,6 +55,14 @@ class ShadowRoundedHelper(
         )
     }
 
+    private var arrowOffset = -1f
+    private var arrowVisible = true
+    private val path = Path()
+    private val rectF = RectF()
+    private val array = Array(5) {
+        PointF()
+    }
+
     /**            /\
      *           /   \
      * ________/   *  \______
@@ -38,28 +70,19 @@ class ShadowRoundedHelper(
      * 如果箭头位置是 TOP 或者 BOTTOM，表示箭头长边中心(*)的 x 坐标距离左侧的距离
      * 如果是 START 或者 END，表示箭头中心(*)的 y 坐标距离顶部的距离
      */
-    var arrowOffset = -1f
-        set(value) {
-            field = value
-            callback.onInvalidate()
-        }
+    override fun setArrowOffset(offset: Float) {
+        arrowOffset = offset
+        mView?.invalidate()
+    }
 
     /**
      * 如果 arrowPosition != NONE，那么 showArrow 为 false，只是隐藏箭头，但是位置还是会空出来的
      */
-    var showArrow = true
-        set(value) {
-            field = value
-            callback.onInvalidate()
-        }
-
-    private val path = Path()
-    private val rectF = RectF()
-    private val array = Array(5) {
-        PointF()
+    override fun setArrowVisible(visible: Boolean) {
+        arrowVisible = visible
     }
 
-    fun draw(canvas: Canvas) {
+    override fun drawX(canvas: Canvas) {
         path.reset()
         calculateRect(rectF)
         path.addRoundRect(rectF, cornerRadius, cornerRadius, Path.Direction.CW)
@@ -67,7 +90,7 @@ class ShadowRoundedHelper(
         if ((arrowPosition == ArrowPosition.TOP ||
                     arrowPosition == ArrowPosition.BOTTOM ||
                     arrowPosition == ArrowPosition.START ||
-                    arrowPosition == ArrowPosition.END) && showArrow
+                    arrowPosition == ArrowPosition.END) && arrowVisible
         ) {
             // 绘制箭头
             calculateArrow(rectF, array)
@@ -78,6 +101,10 @@ class ShadowRoundedHelper(
         }
         canvas.drawPath(path, shadowPaint)
         canvas.save()
+    }
+
+    override fun bindView(view: View) {
+        this.mView = view
     }
 
     /**
@@ -96,11 +123,12 @@ class ShadowRoundedHelper(
      *
      */
     private fun calculateArrow(rect: RectF, array: Array<PointF>) {
+        mView ?: return
         // 箭头中心位置
         val xyOffset: Float = if (arrowOffset < 0) {
             when (arrowPosition) {
-                ArrowPosition.TOP, ArrowPosition.BOTTOM -> callback.getWidth() / 2f
-                ArrowPosition.START, ArrowPosition.END -> callback.getHeight() / 2f
+                ArrowPosition.TOP, ArrowPosition.BOTTOM -> mView!!.width / 2f
+                ArrowPosition.START, ArrowPosition.END -> mView!!.height / 2f
                 ArrowPosition.NONE -> 0F
             }
         } else {
@@ -151,10 +179,11 @@ class ShadowRoundedHelper(
      * 计算矩形范围
      */
     private fun calculateRect(rectF: RectF) {
-        var start = callback.getPaddingStart()
-        var end = callback.getWidth() - callback.getPaddingEnd()
-        var top = callback.getPaddingTop()
-        var bottom = callback.getHeight() - callback.getPaddingBottom()
+        mView ?: return
+        var start = mView!!.paddingStart.toFloat()
+        var end = (mView!!.width - mView!!.paddingEnd).toFloat()
+        var top = mView!!.paddingTop.toFloat()
+        var bottom = (mView!!.height - mView!!.paddingBottom).toFloat()
 
         when (arrowPosition) {
             ArrowPosition.NONE -> {
@@ -174,27 +203,6 @@ class ShadowRoundedHelper(
             }
         }
         rectF.set(start, top, end, bottom)
-    }
-
-    enum class ArrowPosition {
-        NONE,   // 无箭头
-        TOP,
-        START,
-        END,
-        BOTTOM
-    }
-
-    interface Callback {
-
-        fun onInvalidate()
-
-        fun getHeight(): Float
-        fun getWidth(): Float
-        fun getPaddingStart(): Float
-        fun getPaddingEnd(): Float
-        fun getPaddingTop(): Float
-        fun getPaddingBottom(): Float
-
     }
 
 }

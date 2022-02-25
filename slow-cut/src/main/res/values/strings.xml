@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">SlowCut</string>
+    <string name="app_name">慢剪</string>
+    <string name="command_line_hint">ffmpeg -h</string>
+    <string name="span_empty_display_text">空</string>
+    <string name="span_empty_display_emoji">💡</string>
+    <string name="span_file_display_text_file">文件</string>
+    <string name="span_file_display_text_file_emoji">📑</string>
+    <string name="span_file_display_text_folder">文件夹</string>
+    <string name="span_file_display_text_folder_emoji">🗂</string>
+    <string name="span_file_display_text_exist">存在</string>
+    <string name="span_file_display_text_not_exist">不存在</string>
+    <string name="colon">:</string>
 </resources>
