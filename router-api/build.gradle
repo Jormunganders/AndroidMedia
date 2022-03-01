@@ -1,0 +1,37 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.androidCompileSdkVersion
+    buildToolsVersion rootProject.ext.androidBuildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.projectIds.version_code as int
+        versionName rootProject.ext.projectIds.version
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testImplementation 'junit:junit:4.12'
+
+    api project(':router-annotation')
+}
