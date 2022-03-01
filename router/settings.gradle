@@ -1,0 +1,3 @@
+include ':router-compiler'
+include ':router-annotation'
+include ':router-api'

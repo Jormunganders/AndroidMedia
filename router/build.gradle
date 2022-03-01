@@ -1,0 +1,45 @@
+ext {
+    projectIds = ['group': 'me.juhezi.router', 'version': '0.1', 'version_code': '1']
+
+    androidCompileSdkVersion = 26
+    androidBuildToolsVersion = '26.0.2'
+    supportLibVersion = '27.0.0'
+    minSdkVersion = 20
+    targetSdkVersion = 26
+
+    autoServiceVersion = '1.0-rc3'
+}
+
+allprojects {
+    group = projectIds.group
+    version = projectIds.version
+
+    repositories {
+        jcenter()
+        google()
+    }
+
+    task hello {
+        doLast {
+            println "HelloWorld"
+        }
+    }
+
+}
+
+//比 ext 先执行
+buildscript {
+
+    ext.kotlinVersion = '1.2.0'     //rootProject.ext.kotlinVersion
+
+    repositories {
+        jcenter()
+        google()
+    }
+
+    dependencies {
+        println kotlinVersion
+        classpath 'com.android.tools.build:gradle:3.0.1'    //3.0.1 暂时无法下载
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
+}
