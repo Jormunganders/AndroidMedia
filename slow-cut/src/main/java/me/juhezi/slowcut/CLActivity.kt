@@ -1,5 +1,6 @@
 package me.juhezi.slowcut
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.text.SpannableString
@@ -27,6 +28,9 @@ class CLActivity : SlowCutActivity() {
             updateContent()
         }
         Snackbar.make(command_edittext, "Hello World", BaseTransientBottomBar.LENGTH_SHORT).show()
+        btn_register.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
     }
 
     private fun updateContent() {

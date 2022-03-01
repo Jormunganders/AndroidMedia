@@ -34,8 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_24dp"
             android:layout_marginTop="@dimen/dimen_32dp"
-            android:layout_marginBottom="@dimen/dimen_32dp"
             android:layout_marginEnd="@dimen/dimen_24dp"
+            android:layout_marginBottom="@dimen/dimen_32dp"
             android:background="@null"
             android:hint="@string/command_line_hint"
             android:imeOptions="actionDone"
@@ -49,5 +49,14 @@
             tools:text="一看到你，我就想跑！一看到你，\n我就想跑！一看到你，我就想跑！一看到你，我就想跑！" />
 
     </me.juhezi.slowcut.widget.CornerShadowConstraintLayout>
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="Register"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
