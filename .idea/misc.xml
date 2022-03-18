@@ -8,6 +8,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="noxus/src/main/res/layout/noxus_activity.xml" value="0.39356884057971014" />
+        <entry key="noxus/src/main/res/layout/noxus_fragment.xml" value="0.39356884057971014" />
         <entry key="slow-cut/src/main/res/layout/activity_cl.xml" value="0.2590817356205853" />
         <entry key="slow-cut/src/main/res/layout/activity_login.xml" value="0.2590817356205853" />
         <entry key="slow-cut/src/main/res/layout/activity_register.xml" value="0.2590817356205853" />

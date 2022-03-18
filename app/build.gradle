@@ -49,12 +49,12 @@ android {
 //        useIR = true
     }
 
-    lintOptions {
-        abortOnError false
-    }
 
     buildFeatures {
         viewBinding true
+    }
+    lint {
+        abortOnError false
     }
 }
 
