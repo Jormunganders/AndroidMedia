@@ -1,0 +1,62 @@
+{
+  "user_config_properties": [
+    {
+      "key": "userpassword",
+      "value": "anonymous",
+      "desc": "登录密码"
+    },
+    {
+      "key": "homedirectory",
+      "desc": "根目录",
+      "type": "File"
+    },
+    {
+      "key": "enableflag",
+      "value": "true",
+      "desc": "此用户是否可登录",
+      "type": "Boolean"
+    },
+    {
+      "key": "writepermission",
+      "value": "true",
+      "desc": "写文件权限",
+      "type": "Boolean"
+    },
+    {
+      "key": "maxloginnumber",
+      "value": "3",
+      "desc": "最大登录用户数"
+    },
+    {
+      "key": "maxloginperip",
+      "value": "2",
+      "desc": "同 ip 登录用户数"
+    },
+    {
+      "key": "idletime",
+      "value": "300",
+      "desc": "空闲时间（单位：s ）"
+    },
+    {
+      "key": "uploadrate",
+      "value": "480000",
+      "desc": "最大上传速率（单位：字节每秒）"
+    },
+    {
+      "key": "downloadrate",
+      "value": "480000",
+      "desc": "最大下载速率（单位字节每秒）"
+    }
+  ],
+  "common_config_properties": [
+    {
+      "key": "ip_address",
+      "desc": "IP 地址"
+    },
+    {
+      "key": "port",
+      "value": "12138",
+      "desc": "端口"
+    }
+  ]
+}

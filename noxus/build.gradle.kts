@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -32,17 +33,29 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    packagingOptions {
+        exclude("META-INF/DEPENDENCIES")
+    }
 }
 
 dependencies {
-    // todo 替换为 buildSrc 中的内容
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.3.0")
-    implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+    Libs.baseLibs.forEach {
+        implementation(it)
+    }
+    Libs.rxLibs.forEach {
+        implementation(it)
+    }
+    Libs.roomLibs.forEach {
+        implementation(it)
+    }
+    Libs.lifeCycleLibs.forEach {
+        implementation(it)
+    }
+    implementation(Libs.gson)
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    implementation("org.apache.ftpserver:ftpserver-core:1.2.0")
+
+    kapt(AnnotationProcessors.room)
 }
