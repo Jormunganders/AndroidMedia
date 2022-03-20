@@ -1,11 +1,7 @@
-package me.juhezi.sub.noxus.ui.main
+package me.juhezi.sub.noxus.main
 
-import android.graphics.Rect
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.os.Environment
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.trello.rxlifecycle4.components.support.RxFragment
 import me.juhezi.sub.noxus.R
-import me.juhezi.sub.noxus.ftpconfig.FtpConfigManager
+import me.juhezi.sub.noxus.databinding.NoxusFragmentBinding
 import org.apache.ftpserver.FtpServer
 import org.apache.ftpserver.FtpServerFactory
 import org.apache.ftpserver.listener.ListenerFactory
@@ -31,6 +27,8 @@ class NoxusFragment : RxFragment() {
     }
 
     private lateinit var viewModel: MainViewModel
+    private lateinit var binding: NoxusFragmentBinding
+
     private lateinit var mFtpServer: FtpServer
     private val dirname = "/storage/emulated/0/noxus"
     private val configFile = "$dirname/users.properties"
@@ -44,31 +42,22 @@ class NoxusFragment : RxFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.noxus_fragment, container, false)
+        binding = NoxusFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        /*FtpConfigManager.getAllUser().compose(bindToLifecycle()).subscribe {
-            Log.i(TAG, "onActivityCreated: ${it.size}")
-            it.forEach { pair ->
-                Log.i(TAG, "onActivityCreated: $pair")
-            }
-
-        }*/
-        FtpConfigManager.getLiteConfig().compose(bindToLifecycle()).subscribe {
-            /*Log.i(TAG, "onActivityCreated: ${it.size}")
-            it.forEach { config ->
-                Log.i(TAG, "onActivityCreated: $config")
-            }*/
+        initLiteConfigList()
+        viewModel.liteConfigsLiveData.observe(viewLifecycleOwner) {
             mAdapter.setDataList(it)
         }
-        initLiteConfigList()
+        viewModel.requestLiteConfig()
     }
 
     private fun initLiteConfigList() {
-        mLiteConfigList = requireView().findViewById(R.id.lite_config_list)
+        mLiteConfigList = binding.liteConfigList
         mLiteConfigList.layoutManager = LinearLayoutManager(context)
         mLiteConfigList.adapter = mAdapter
         mLiteConfigList.addItemDecoration(

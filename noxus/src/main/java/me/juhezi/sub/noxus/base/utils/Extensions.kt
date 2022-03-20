@@ -1,4 +1,4 @@
-package me.juhezi.sub.noxus.utils
+package me.juhezi.sub.noxus.base.utils
 
 import android.content.res.AssetManager
 import java.io.BufferedReader

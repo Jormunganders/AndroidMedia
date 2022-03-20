@@ -1,4 +1,4 @@
-package me.juhezi.sub.noxus.ui.main
+package me.juhezi.sub.noxus.main
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -26,6 +26,7 @@ class LiteConfigAdapter : RecyclerView.Adapter<LiteConfigAdapter.ViewHolder>() {
         viewType: Int
     ): ViewHolder {
         val view = when (viewType) {
+            // TODO: 替换为 viewbinding
             HolderType.USER_INFO_TITLE.ordinal -> LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_user_info_title, parent, false)
             HolderType.USER_INFO.ordinal -> LayoutInflater.from(parent.context)

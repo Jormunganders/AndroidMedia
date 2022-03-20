@@ -17,7 +17,7 @@ import me.juhezi.sub.noxus.ftpconfig.database.NoxusDatabase
 import me.juhezi.sub.noxus.ftpconfig.database.userconfig.UserConfigDao
 import me.juhezi.sub.noxus.ftpconfig.database.userconfig.UserConfigModel
 import me.juhezi.sub.noxus.ftpconfig.model.FtpConfigGroup
-import me.juhezi.sub.noxus.utils.readFromFile
+import me.juhezi.sub.noxus.base.utils.readFromFile
 
 @SuppressLint("StaticFieldLeak")
 object FtpConfigManager {
