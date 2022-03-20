@@ -8,6 +8,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="noxus/src/main/res/drawable/bg_edit_button.xml" value="0.3275" />
+        <entry key="noxus/src/main/res/layout/item_config.xml" value="0.5282608032226563" />
+        <entry key="noxus/src/main/res/layout/item_user_info.xml" value="0.3541666666666667" />
+        <entry key="noxus/src/main/res/layout/item_user_info_title.xml" value="0.3541666666666667" />
         <entry key="noxus/src/main/res/layout/noxus_activity.xml" value="0.39356884057971014" />
         <entry key="noxus/src/main/res/layout/noxus_fragment.xml" value="0.39356884057971014" />
         <entry key="slow-cut/src/main/res/layout/activity_cl.xml" value="0.2590817356205853" />

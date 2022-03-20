@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    tools:ignore="MissingConstraints">
+
+    <TextView
+        android:id="@+id/user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start|center_vertical"
+        android:textColor="@color/purple_700"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="访客" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:gravity="start|center_vertical"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintBaseline_toBaselineOf="@+id/user"
+        app:layout_constraintStart_toEndOf="@+id/user"
+        tools:text="helloworld" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,7 +16,7 @@ interface UserConfigDao {
      * 获取所有的配置信息
      */
     @Query("SELECT * FROM user_configs")
-    fun getAll(): List<UserConfigModel>
+    fun getAll(): Observable<List<UserConfigModel>>
 
     /**
      * 获取配置记录
@@ -24,12 +24,18 @@ interface UserConfigDao {
     @Query("SELECT COUNT(*) FROM user_configs")
     fun getConfigCount(): Observable<Int>
 
-    // 获取所有用户信息
-//    @Query("SELECT user FROM user_configs WHERE user NOT NULL")
-//    fun getAllUser(): List<String>
+    /**
+     * 获取所有用户信息
+     */
+    @Query("SELECT DISTINCT(user) FROM user_configs WHERE user NOT NULL")
+    fun getAllUser(): Observable<List<String>>
 
-    // 获取公共的配置项ListenableFuture
-//    fun getCommonConfigs(): List<UserConfigModel>
+    /**
+     * 获取公共的配置项
+     * 判定条件：user 为 null
+     */
+    @Query("SELECT * FROM user_configs WHERE user IS NULL")
+    fun getCommonConfigs(): Observable<List<UserConfigModel>>
 
     // 获取单个用户信息
 //    fun getConfigsByUser(username: String): List<UserConfigModel>

@@ -12,6 +12,7 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import me.juhezi.sub.noxus.R
 import me.juhezi.sub.noxus.ftpconfig.database.NoxusDatabase
 import me.juhezi.sub.noxus.ftpconfig.database.userconfig.UserConfigDao
 import me.juhezi.sub.noxus.ftpconfig.database.userconfig.UserConfigModel
@@ -144,12 +145,15 @@ object FtpConfigManager {
             .filter { it.key.isNotEmpty() }
             .map {
                 UserConfigModel(
-                    "$CONFIG_PREFIX.$user.${it.key}",
+                    "$CONFIG_PREFIX.$user.${it.key}".apply {
+                        // TODO: WILL REMOVE
+//                        Log.i(TAG, "saveUserConfig: $this")
+                    },
                     it.value,
                     it.desc,
                     it.type,
                     true,
-                    USER_ANONYMOUS
+                    user
                 )
             })
     }
@@ -161,5 +165,36 @@ object FtpConfigManager {
     private fun generatePropertyFile() {
 
     }
+
+    // todo temp
+    private fun getAllUser(): Observable<List<Pair<String, String>>> = dao.getAllUser().map {
+        it.map { user ->
+            if (USER_ANONYMOUS == user) {
+                // TODO: read string res need opt
+                user to context.resources.getString(R.string.anonymous)
+            } else {
+                user to user
+            }
+        }
+    }
+
+    private fun getCommonConfigs(): Observable<List<UserConfigModel>> = dao.getCommonConfigs()
+
+    /**
+     * 返回简单的配置信息
+     * 1. 公共配置
+     * 2. 用户信息
+     */
+    fun getLiteConfig(): Observable<List<Any>> =
+        Observable.zip(getAllUser(), getCommonConfigs()) { userList, commonConfigs ->
+            buildList {
+                addAll(commonConfigs)
+                // TODO: read string res need opt
+                add(context.resources.getString(R.string.user_info))
+                addAll(userList)
+            }
+        }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 
 }

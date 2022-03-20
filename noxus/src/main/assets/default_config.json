@@ -25,27 +25,32 @@
     {
       "key": "maxloginnumber",
       "value": "3",
-      "desc": "最大登录用户数"
+      "desc": "最大登录用户数",
+      "type": "Int"
     },
     {
       "key": "maxloginperip",
       "value": "2",
-      "desc": "同 ip 登录用户数"
+      "desc": "同 ip 登录用户数",
+      "type": "Int"
     },
     {
       "key": "idletime",
       "value": "300",
-      "desc": "空闲时间（单位：s ）"
+      "desc": "空闲时间（单位：s ）",
+      "type": "Int"
     },
     {
       "key": "uploadrate",
       "value": "480000",
-      "desc": "最大上传速率（单位：字节每秒）"
+      "desc": "最大上传速率（单位：字节每秒）",
+      "type": "Int"
     },
     {
       "key": "downloadrate",
       "value": "480000",
-      "desc": "最大下载速率（单位字节每秒）"
+      "desc": "最大下载速率（单位字节每秒）",
+      "type": "Int"
     }
   ],
   "common_config_properties": [
