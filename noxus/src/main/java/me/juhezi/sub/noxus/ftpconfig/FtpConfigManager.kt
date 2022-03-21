@@ -180,7 +180,7 @@ object FtpConfigManager {
 
     private fun getCommonConfigs(): Observable<List<UserConfigModel>> = dao.getCommonConfigs()
 
-    /**
+    /**LiveDataReactiveStreams
      * 返回简单的配置信息
      * 1. 公共配置
      * 2. 用户信息

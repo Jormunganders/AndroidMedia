@@ -3,12 +3,14 @@ object Versions {
     const val rxlifecycle = "4.0.2"
     const val glide = "4.11.0"
     const val room = "2.4.2"
+    const val hilt = "2.28-alpha"
 }
 
 object Libs {
     const val autoValue = "com.google.auto.value:auto-value-annotations:${Versions.autoValue}"
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val gson = "com.google.code.gson:gson:2.8.6"
+    const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
 
     val retrofitLibs = arrayListOf(
         "com.squareup.retrofit2:retrofit:2.9.0",
@@ -46,6 +48,16 @@ object Libs {
         "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
     )
 
+    val ktxLibs = arrayListOf(
+        "androidx.collection:collection-ktx:1.2.0",
+        "androidx.fragment:fragment-ktx:1.4.1",
+        "androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha03",
+        "androidx.lifecycle:lifecycle-livedata-ktx:2.5.0-alpha03",
+        "androidx.lifecycle:lifecycle-reactivestreams-ktx:2.5.0-alpha03",
+        "androidx.room:room-ktx:2.4.2",
+        "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0-alpha03",
+    )
+
 }
 
 /**
@@ -54,4 +66,5 @@ object Libs {
 object AnnotationProcessors {
     const val autoValue = "com.google.auto.value:auto-value:${Versions.autoValue}"
     const val room = "androidx.room:room-compiler:${Versions.room}"
+    const val hilt = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
 }

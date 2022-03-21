@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -54,6 +55,10 @@ dependencies {
     Libs.lifeCycleLibs.forEach {
         implementation(it)
     }
+    Libs.ktxLibs.forEach {
+        implementation(it)
+    }
+    implementation(Libs.hilt)
     implementation(Libs.gson)
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
@@ -61,4 +66,5 @@ dependencies {
     implementation("org.apache.ftpserver:ftpserver-core:1.2.0")
 
     kapt(AnnotationProcessors.room)
+    kapt(AnnotationProcessors.hilt)
 }

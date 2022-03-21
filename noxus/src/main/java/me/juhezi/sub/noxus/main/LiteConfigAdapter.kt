@@ -8,7 +8,11 @@ import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import me.juhezi.sub.noxus.R
+import me.juhezi.sub.noxus.databinding.ItemConfigBinding
+import me.juhezi.sub.noxus.databinding.ItemUserInfoBinding
+import me.juhezi.sub.noxus.databinding.ItemUserInfoTitleBinding
 import me.juhezi.sub.noxus.ftpconfig.database.userconfig.UserConfigModel
+import javax.inject.Inject
 
 class LiteConfigAdapter : RecyclerView.Adapter<LiteConfigAdapter.ViewHolder>() {
 
@@ -25,14 +29,23 @@ class LiteConfigAdapter : RecyclerView.Adapter<LiteConfigAdapter.ViewHolder>() {
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
         val view = when (viewType) {
-            // TODO: 替换为 viewbinding
-            HolderType.USER_INFO_TITLE.ordinal -> LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_user_info_title, parent, false)
-            HolderType.USER_INFO.ordinal -> LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_user_info, parent, false)
-            HolderType.CONFIG.ordinal -> LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_config, parent, false)
+            HolderType.USER_INFO_TITLE.ordinal -> ItemUserInfoTitleBinding.inflate(
+                inflater,
+                parent,
+                false
+            ).root
+            HolderType.USER_INFO.ordinal -> ItemUserInfoBinding.inflate(
+                inflater,
+                parent,
+                false
+            ).root
+            HolderType.CONFIG.ordinal -> ItemConfigBinding.inflate(
+                inflater,
+                parent,
+                false
+            ).root
             else -> View(parent.context)
         }
         return ViewHolder(view)

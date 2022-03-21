@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.trello.rxlifecycle4.components.support.RxFragment
+import dagger.hilt.android.AndroidEntryPoint
 import me.juhezi.sub.noxus.R
 import me.juhezi.sub.noxus.databinding.NoxusFragmentBinding
 import org.apache.ftpserver.FtpServer
@@ -16,7 +17,9 @@ import org.apache.ftpserver.FtpServerFactory
 import org.apache.ftpserver.listener.ListenerFactory
 import org.apache.ftpserver.usermanager.PropertiesUserManagerFactory
 import java.io.File
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class NoxusFragment : RxFragment() {
 
     companion object {
@@ -34,9 +37,9 @@ class NoxusFragment : RxFragment() {
     private val configFile = "$dirname/users.properties"
 
     private lateinit var mLiteConfigList: RecyclerView
-    private val mAdapter: LiteConfigAdapter by lazy {
-        LiteConfigAdapter()
-    }
+
+    @Inject
+    lateinit var mAdapter: LiteConfigAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +56,6 @@ class NoxusFragment : RxFragment() {
         viewModel.liteConfigsLiveData.observe(viewLifecycleOwner) {
             mAdapter.setDataList(it)
         }
-        viewModel.requestLiteConfig()
     }
 
     private fun initLiteConfigList() {
