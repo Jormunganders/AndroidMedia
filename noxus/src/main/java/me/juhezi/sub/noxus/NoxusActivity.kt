@@ -3,11 +3,12 @@ package me.juhezi.sub.noxus
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import dagger.hilt.android.AndroidEntryPoint
+import me.juhezi.slow_cut_base.core.SlowCutActivity
 import me.juhezi.sub.noxus.databinding.NoxusActivityBinding
 import me.juhezi.sub.noxus.main.NoxusFragment
 
 @AndroidEntryPoint
-class NoxusActivity : AppCompatActivity() {
+class NoxusActivity : SlowCutActivity() {
 
     private lateinit var binding: NoxusActivityBinding
 

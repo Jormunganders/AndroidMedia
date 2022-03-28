@@ -64,6 +64,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     implementation("org.apache.ftpserver:ftpserver-core:1.2.0")
+    implementation(project(":slow-cut-base"))
 
     kapt(AnnotationProcessors.room)
     kapt(AnnotationProcessors.hilt)

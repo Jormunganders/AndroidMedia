@@ -12,6 +12,7 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import me.juhezi.slow_cut_base.util.CommonUtil
 import me.juhezi.sub.noxus.R
 import me.juhezi.sub.noxus.ftpconfig.database.NoxusDatabase
 import me.juhezi.sub.noxus.ftpconfig.database.userconfig.UserConfigDao
@@ -145,10 +146,7 @@ object FtpConfigManager {
             .filter { it.key.isNotEmpty() }
             .map {
                 UserConfigModel(
-                    "$CONFIG_PREFIX.$user.${it.key}".apply {
-                        // TODO: WILL REMOVE
-//                        Log.i(TAG, "saveUserConfig: $this")
-                    },
+                    "$CONFIG_PREFIX.$user.${it.key}",
                     it.value,
                     it.desc,
                     it.type,
@@ -170,8 +168,7 @@ object FtpConfigManager {
     private fun getAllUser(): Observable<List<Pair<String, String>>> = dao.getAllUser().map {
         it.map { user ->
             if (USER_ANONYMOUS == user) {
-                // TODO: read string res need opt
-                user to context.resources.getString(R.string.anonymous)
+                user to CommonUtil.string(R.string.anonymous)
             } else {
                 user to user
             }
@@ -190,7 +187,7 @@ object FtpConfigManager {
             buildList {
                 addAll(commonConfigs)
                 // TODO: read string res need opt
-                add(context.resources.getString(R.string.user_info))
+                add(CommonUtil.string(R.string.user_info))
                 addAll(userList)
             }
         }
