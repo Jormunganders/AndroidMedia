@@ -12,13 +12,13 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import me.juhezi.slow_cut_base.ext.readFromFile
 import me.juhezi.slow_cut_base.util.CommonUtil
 import me.juhezi.sub.noxus.R
 import me.juhezi.sub.noxus.ftpconfig.database.NoxusDatabase
 import me.juhezi.sub.noxus.ftpconfig.database.userconfig.UserConfigDao
 import me.juhezi.sub.noxus.ftpconfig.database.userconfig.UserConfigModel
 import me.juhezi.sub.noxus.ftpconfig.model.FtpConfigGroup
-import me.juhezi.sub.noxus.base.utils.readFromFile
 
 @SuppressLint("StaticFieldLeak")
 object FtpConfigManager {

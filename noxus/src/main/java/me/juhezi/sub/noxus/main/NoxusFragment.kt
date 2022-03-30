@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.trello.rxlifecycle4.components.support.RxFragment
 import dagger.hilt.android.AndroidEntryPoint
+import me.juhezi.slow_cut_base.adaptermanager.BaseAdapter
 import me.juhezi.sub.noxus.R
 import me.juhezi.sub.noxus.databinding.NoxusFragmentBinding
 import org.apache.ftpserver.FtpServer
@@ -39,7 +40,7 @@ class NoxusFragment : RxFragment() {
     private lateinit var mLiteConfigList: RecyclerView
 
     @Inject
-    lateinit var mAdapter: LiteConfigAdapter
+    lateinit var mAdapter: BaseAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,11 +52,13 @@ class NoxusFragment : RxFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+
         initLiteConfigList()
         viewModel.liteConfigsLiveData.observe(viewLifecycleOwner) {
-            mAdapter.setDataList(it)
+            mAdapter.edit().notifyDataChanged(it)
         }
+
     }
 
     private fun initLiteConfigList() {
