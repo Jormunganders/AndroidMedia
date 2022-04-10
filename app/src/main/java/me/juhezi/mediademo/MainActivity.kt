@@ -6,9 +6,7 @@ import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Build
-import android.os.Bundle
-import android.os.ParcelFileDescriptor
+import android.os.*
 import android.provider.OpenableColumns
 import android.text.Html
 import android.util.Log
@@ -16,13 +14,21 @@ import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.CompletableSource
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.internal.operators.observable.ObservableMergeWithCompletable
+import io.reactivex.rxjava3.plugins.RxJavaPlugins
+import io.reactivex.rxjava3.subjects.PublishSubject
 import kotlinx.android.synthetic.main.demo_activity_main.*
 import kotlinx.coroutines.*
 import me.juhezi.mediademo.kuaishou.AsyncCacheLayoutInflater
 import me.juhezi.mediademo.media.camera.CaptureActivity
+import me.juhezi.mediademo.reactivex.ObservableControlWithCompletable
 import java.io.FileDescriptor
 import java.io.IOException
+import java.util.*
 
 class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
@@ -101,8 +107,64 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
             }
         }
         button_rxjava_demo.setOnClickListener {
-            testRxJava()
+            publish.onNext(System.currentTimeMillis().toString())
         }
+        button_rxjava_demo_1.setOnClickListener {
+            disposable?.dispose()
+            disposable = publish.customTimeout(3000).subscribe({
+                Log.i(TAG, "onNext: $it")
+            }, {
+                Log.i(TAG, "onError: $it")
+            }, {
+                Log.i(TAG, "onComplete")
+            })
+        }
+    }
+
+    private var disposable: Disposable? = null
+    private val publish = PublishSubject.create<String>()
+
+    /**
+     * 另一种意义上的超时机制，timeoutMs 时间内没有发送数据，则认为是超时。
+     * timeoutMs 后如果发射过数据，那么则发射 onComplete，否则发射 onError
+     * timeoutMs <= 0 没有超时机制，不会发射 onComplete 或者 onError，需要主动 disposed
+     * @param T
+     * @param timeoutMs 单位：ms
+     * @return
+     */
+    private fun <T> Observable<T>.customTimeout(timeoutMs: Long): Observable<T> {
+
+        if (timeoutMs <= 0) {
+            return this
+        }
+
+        // 是否已经发射过数据了
+        var hasData = false
+
+        fun delayCheckCompletable() = Completable.create {
+            // 和 Completable.fromAction 一样
+            // 这个部分有点丑陋，看有没有什么更好的方法
+            Handler(Looper.getMainLooper()).postDelayed(
+                {
+                    if (it.isDisposed) {
+                        return@postDelayed
+                    }
+                    if (hasData) {
+                        it.onComplete()
+                    } else {
+                        it.onError(Exception("超时了！"))
+                    }
+                }, timeoutMs
+            )
+        }
+        return doOnNext {
+            hasData = true
+        }.controlBy(delayCheckCompletable())
+    }
+
+    fun <T> Observable<T>.controlBy(other: CompletableSource): Observable<T> {
+        Objects.requireNonNull(other, "other is null")
+        return RxJavaPlugins.onAssembly(ObservableControlWithCompletable(this, other))
     }
 
     private suspend fun updateNumber() = withContext(Dispatchers.IO) {

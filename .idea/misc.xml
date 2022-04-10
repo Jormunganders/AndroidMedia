@@ -8,6 +8,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/demo_activity_main.xml" value="0.3170289855072464" />
         <entry key="noxus/src/main/res/drawable/bg_edit_button.xml" value="0.3275" />
         <entry key="noxus/src/main/res/layout/item_config.xml" value="0.5282608032226563" />
         <entry key="noxus/src/main/res/layout/item_user_info.xml" value="0.3541666666666667" />

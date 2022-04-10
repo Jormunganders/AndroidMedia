@@ -79,28 +79,45 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@android:color/holo_orange_light"
-            android:text="浅色|深色状态栏"
             android:singleLine="true"
+            android:text="浅色|深色状态栏"
             android:textColor="@android:color/white" />
 
         <Button
+            android:id="@+id/button_rxjava_demo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@android:color/holo_green_light"
-            android:text="RxJava"
-            android:textColor="@android:color/white"
-            android:id="@+id/button_rxjava_demo"/>
+            android:text="onNext"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/button_rxjava_demo_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/holo_green_light"
+            android:text="subscribe"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/button_v2ex"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@android:color/holo_red_dark"
-        android:text="V2EX"
-        android:textColor="@android:color/white" />
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/button_v2ex"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:text="V2EX"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/text_live_data"
